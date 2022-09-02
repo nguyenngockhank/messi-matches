@@ -16,14 +16,11 @@
   }
 
   #calendar {
-      /* max-width: 1100px; */
-      margin: 0 auto;
+    margin: 0 auto;
   }
   .fc-daygrid-event{
     border: 3px solid white;
-    /* text-shadow: 1px 0px #fff; */
   }
-
   .ga1 {
     border-color: brown;
   }
@@ -35,24 +32,16 @@
   }
   .ga4 {
     border-color: #dd7e6b;
-      /* color: white; */
   }
   .ga5 {
     border-color: blue; 
-      /* color: white; */
   }
   .ga6 {
     border-color: grey;
-      /* color: white; */
   }
   .ga7 {
     border-color: black;
-      /* color: white; */
   }
-  /* .hattrick{
-      padding: 4px;
-      border: 2px dashed yellowgreen;
-  } */
   .note span {
     display: inline-block;
     width: 30px;
@@ -93,26 +82,17 @@
       },
       slotDuration: '01:30:00',
       expandRows: true,
-      initialDate: '2022-08-03',
-      navLinks: true, // can click day/week names to navigate views
-      // businessHours: true, // display business hours
+      // initialDate: '2022-08-03',
+      navLinks: true, 
       editable: false,
       selectable: true,
       weekends: true,
       displayEventTime: false,
       eventDisplay: 'list-item',
       events:  matchesToEvents(),
-      // eventClassNames: function(arg) {
-      //   const result = [];
-      //   const { goals, totalGA } = arg.event.extendedProps;
-      //   if (totalGA > 0) {
-      //     result.push(`ga${totalGA}`);
-      //   } 
-      //   return result;
-      // },
+
       eventDidMount: function(arg) {
         const {event: { extendedProps }, el} = arg;
-        // console.log("info>>", arg)
         $(el).css('background', goalContributrionBackgroundColor(extendedProps))
         $(el).prop('title', goalContributionTitle(extendedProps))
         $(el).click(() => {
@@ -120,9 +100,6 @@
         })
       },
     });
-
-    // background: linear-gradient(90deg, #FFC0CB 50%, #00FFFF 50%);
-
     calendar.render();
   });
 
