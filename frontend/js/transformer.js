@@ -31,19 +31,20 @@ function awayTitle(match) {
 
 
 const gaColorMap = {
-    "0": 'white',
-    "1": "brown",
+    "0": 'black',
+    "1": "yellow",
     "2": "#ff00ff", // pink
     "3": "red", // pink
     "4": "#dd7e6b",
     "5": "blue", 
     "6": "grey", 
-    "7": "black", 
+    // "7": "black", 
 }
 
 
 function goalContributrionBackgroundColor(match)  {
     const { goals, assists } = match;
+
     let totalGA = assists  + goals;
     if (totalGA <= 0) {
         return undefined;
@@ -51,13 +52,29 @@ function goalContributrionBackgroundColor(match)  {
     const goalColor = gaColorMap[goals];
     const assistColor = gaColorMap[assists];
 
-    const goalPercent = Math.ceil((goals / totalGA) * 100);
-    const assistPercent = Math.ceil((assists / totalGA) * 100);
-    const delimiter = 100 - goalPercent - assistPercent;
 
-    
-    //  background: 
-    const bgColor = `linear-gradient(90deg, ${goalColor} ${goalPercent}%, ${assistColor} ${assistPercent}%)`;
+    const delimiter = 1; 
+    const delimiterColor = 'black';
+    const defaultPercent = 0;
+
+    function calculatePercent(count, totalGA) {
+        return count === 0 ? defaultPercent : Math.floor((count / totalGA) * (100 - delimiter));
+    }
+
+    const goalPercent = calculatePercent(goals, totalGA);
+    const assistPercent = calculatePercent(assists, totalGA);
+
+
+
+    // https://stackoverflow.com/questions/45097591/generate-solid-colors-using-css-linear-gradient-not-smooth-colors
+    const colorStack = [];
+    colorStack.push(`${goalColor} ${goalPercent}%`)
+    colorStack.push(`${delimiterColor} ${delimiter}%`)
+    colorStack.push(`${delimiterColor} ${delimiter + goalPercent}%`)
+    colorStack.push(`${assistColor} ${delimiter + goalPercent}%`)
+    colorStack.push(`${assistColor} ${delimiter + goalPercent + assistPercent}%`)
+
+    const bgColor = `linear-gradient(to right, ${colorStack.join(',')})`;
     return bgColor;
 }
 
@@ -65,6 +82,25 @@ function goalContributrionBackgroundColor(match)  {
 function goalContributionTitle(match) {
     const { goals, assists } = match;
     return `${goals}G & ${assists}A`
+}
+
+// @see: https://fullcalendar.io/docs/rrule-plugin
+function matchRepeatOptions(date) {
+    const currentDate = new Date();
+    const matchDate = new Date(date);
+
+    const yearOffset = currentDate.getFullYear() - matchDate.getFullYear();
+    if (yearOffset <= 0) {
+        return;
+    }
+
+
+    return {
+        freq: 'yearly',
+        // interval: yearOffset,
+        dtstart: date,
+        until: new Date(currentDate.getFullYear(), 11, 31), // last date of YEAR
+    }
 }
 
 
@@ -93,8 +129,13 @@ function matchToEvent(match, date) {
         console.warn(">>> not found color for competition", competition)
     }
 
+    const repeatOptions = matchRepeatOptions(date);
+
+    const preTitle = _.isEmpty(repeatOptions) ? "" : `[${year}] `
+    // console.log(repeatOptions)
+
     return {
-        title: `${title}`,
+        title: `${preTitle}${title}`,
         constraint: competition,
         start: new Date(date).toISOString(),
         // start: new Date(match.date).toISOString(),
@@ -103,8 +144,9 @@ function matchToEvent(match, date) {
             totalGA,
             ...match,
         },
+        rrule: repeatOptions,
         // backgroundColor: goalContributrionBackgroundColor(match),
-        backgroundColor: 'pink',
+        // backgroundColor: 'pink',
         // description: `${goals}G ${assists}A`,
         // eventContent: (info) => {
         //     console.log("^^", info)
