@@ -63,8 +63,8 @@
   <div id='calendar'></div>
 
   <!-- Modal -->
-  <div class="modal fade modal-lg" id="matchDetail" data-bs-backdrop="static"
-     data-bs-keyboard="false" tabindex="-1"
+  <div class="modal fade modal-lg" id="matchDetail" 
+     data-bs-keyboard="true" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -87,8 +87,10 @@
   <script src='./js/jquery.js'></script>
   <script src="./js/lodash.js"></script>
   <script src="./js/matches.js"></script>
+  <script src="./js/match-videos.js"></script>
   <script src="./js/transformer.js"></script>
   <script>
+ 
   for(const count in gaColorMap) {
     $('.note').append(`<span style="background-color: ${gaColorMap[count]}">${count}</span>`)
   }
@@ -144,28 +146,17 @@
       },
       eventDidMount: function(arg) {
         const {event: { extendedProps, _def }, el} = arg;
+        const { id, competition } = extendedProps;
         $(el).css('background', goalContributrionBackgroundColor(extendedProps))
         $(el).prop('title', goalContributionTitle(extendedProps))
         $(el).click(() => {
-
+          // change title
+          $('#matchDetail .modal-title').html(`[${competition}]${_def.title} ${id}`)
          
-          console.log(_def)
-          const lines = [
-            , goalContributionTitle(extendedProps)
-          ];
-
-          const omitAttrs =  [
-            'year', 'competition', 'totalGA', 'goals', 'assists', 'team', 'opponent',
-            'scoreTeam', 'scoreOpponent'
-          ];
-          _.map(_.omit(extendedProps,omitAttrs), (value, prop) => lines.push(`<div><strong>${prop}<strong>: ${value}</div>`));
-
-      
-          $('#matchDetail .modal-title').html(`[${extendedProps.competition}] ${_def.title}`)
-          $('#matchDetail .modal-body').html(lines.join(""));
+          // change body 
+          $('#matchDetail .modal-body').html(matchDetailModelString(extendedProps));
 
           $matchModal.show();
-          // alert(lines.join("\n"))
         })
       },
     });

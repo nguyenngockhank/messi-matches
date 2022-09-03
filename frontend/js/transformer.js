@@ -113,8 +113,9 @@ const competitionColorMap = {
 }
 
 // https://fullcalendar.io/docs/event-object
-function matchToEvent(match, date) {
-    const { homeAway, team, goals, allAssists, assists, competition, year } = match;
+function matchToEvent(match, ) { 
+    const { id, homeAway, team, goals, allAssists, assists, competition, year } = match;
+    const date = new Date(id)
     const  isHome = homeAway === 'H';
 
     let totalGA = assists  + goals;
@@ -130,7 +131,7 @@ function matchToEvent(match, date) {
     // console.log(repeatOptions)
 
     return {
-        id: date,
+        id,
         title: `${preTitle}${title}`,
         constraint: competition,
         start: new Date(date).toISOString(),
@@ -158,22 +159,53 @@ function matchToEvent(match, date) {
     }
 }
 
-function matchesToEventsSameDay() {
-    return _.flatten(_.map(dateMatchesMap, (matches, date) => {
-        const [day, month] = date.split('-')
-        // ${match.year}
-        const year = new Date().getFullYear()
-        return _.map(matches, match => matchToEvent(match, new Date(`${year}-${month}-${day}`)))
-    }))
-}
-
 
 function matchesToEvents() {
     return _.flatten(_.map(dateMatchesMap, (matches, date) => {
         const [day, month] = date.split('-')
-        return _.map(matches, match => matchToEvent(match, new Date(`${match.year}-${month}-${day}`)))
+        return _.map(matches, match => {
+            match.id = `${match.year}-${month}-${day}`;
+            match.videos = matchVideosMap[match.id];
+            return matchToEvent(match)
+        })
     }))
 }
+
+
+function matchDetailModelString(match) {
+    const lines = [
+        goalContributionTitle(match)
+    ];
+
+    // append video 
+    _.map(match.videos, (videoId) => {
+        lines.push(`<iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);
+        // lines.push(`<iframe width="100%" src="${videoUrl}" height="300" frameborder="0" allowfullscreen=""></iframe>`);
+        lines.push(`<a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">Link video</a>`)
+        lines.push('<hr />')
+    });
+
+    
+    // <iframe width="400" height="300" frameborder="0" allowfullscreen=""></iframe>
+
+    const omitAttrs =  [
+    'year', 'competition', 'totalGA', 'goals', 'assists', 'team', 'opponent',
+    'scoreTeam', 'scoreOpponent'
+    ];
+    _.map(_.omit(match, omitAttrs), (value, prop) => lines.push(`<div><strong>${prop}</strong>: ${value}</div>`));
+
+    return lines.join("\n");
+}
+
+// function matchesToEventsSameDay() {
+//     return _.flatten(_.map(dateMatchesMap, (matches, date) => {
+//         const [day, month] = date.split('-')
+//         // ${match.year}
+//         const year = new Date().getFullYear()
+//         return _.map(matches, match => matchToEvent(match, new Date(`${year}-${month}-${day}`)))
+//     }))
+// }
+
 
 
 
