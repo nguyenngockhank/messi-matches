@@ -9,14 +9,6 @@ function teamName(name) {
     return aliasTeamNameMap[name] || name;
 }
 
-function getTodayMatches() {
-    const currentDate = new Date();
-    const todayKey = currentDate.getDate().toString().padStart(2, '0') 
-                    + '-' 
-                    + (currentDate.getMonth() + 1).toString().padStart(2, '0');
-    const todayMatches = dateMatchesMap[todayKey]
-    return todayMatches || []
-}
 
 function homeTitle(match) {
     const { team, opponent, scoreTeam, scoreOpponent } = match;
@@ -115,6 +107,9 @@ const competitionColorMap = {
     'International Friendly': `lightblue`,
     'Copa del Rey': 'silver',
     'Supercopa de Espana': 'orange',
+    'Trophée des Champions': 'yellow',
+    'Finalissima': 'darkblue',
+    'Club World Cup': 'yellow',
 }
 
 // https://fullcalendar.io/docs/event-object
@@ -135,6 +130,7 @@ function matchToEvent(match, date) {
     // console.log(repeatOptions)
 
     return {
+        id: date,
         title: `${preTitle}${title}`,
         constraint: competition,
         start: new Date(date).toISOString(),
@@ -180,6 +176,15 @@ function matchesToEvents() {
 }
 
 
+
+// function getTodayMatches() {
+//     const currentDate = new Date();
+//     const todayKey = currentDate.getDate().toString().padStart(2, '0') 
+//                     + '-' 
+//                     + (currentDate.getMonth() + 1).toString().padStart(2, '0');
+//     const todayMatches = dateMatchesMap[todayKey]
+//     return todayMatches || []
+// }
 
 // console.log("Today matches:", JSON.stringify(todayMatches))
 // var calendar = $("#calendar").calendarGC({
