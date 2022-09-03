@@ -1,35 +1,90 @@
 
+const matchAttrTitleMap = {
+    left: 'left foot', 
+    right: 'right foot', 
+    'insideBox': 'inside box',
+    'outsideBox': 'outside box',
+    'freeKicks': 'free kick',
+    'pensMissed': 'missed pens',
+    'started': 'started',
+   
+}
+
+
+const quotientOrdinalNumberPostfixMap = {
+    '1': 'st',
+    '2': 'nd',
+    '3': 'rd',
+}
+
+function ordinalNumber(number) {
+    // https://www.britannica.com/dictionary/eb/qa/How-To-Write-Ordinal-Numbers
+    if (number >= 11 && number <= 19) {
+        return number + 'th';
+    }
+
+    const postfix =  quotientOrdinalNumberPostfixMap[number % 10] || 'th'
+    return number + postfix;
+}
+
+
 const aliasTeamNameMap = {
     'Barcelona': 'Barca',
     'Paris Saint-Germain': 'PSG',
     'Manchester City': 'Man City',
 }
-
 function teamName(name) {
     return aliasTeamNameMap[name] || name;
 }
 
-
-function homeTitle(match) {
-    const { team, opponent, scoreTeam, scoreOpponent } = match;
-    return `${teamName(team)} ${scoreTeam} - ${scoreOpponent} ${teamName(opponent)}`
+function isHome(match) {
+    return ['H', 'N'].includes(match.homeAway);
 }
 
+function homeTitle(match, options) {
+    const { year, team, opponent, scoreTeam, scoreOpponent } = match;
+    const prefix = _.get(options, 'prefixYear') ? `[${year}] ` : '';
+    return `${prefix}${teamName(team)} ${scoreTeam} - ${scoreOpponent} ${teamName(opponent)}`
+}
 
-function awayTitle(match) {
-    const { team, opponent, scoreTeam, scoreOpponent } = match;
-    return `${teamName(opponent)} ${scoreOpponent} - ${scoreTeam} ${teamName(team)}`
+function awayTitle(match, options) {
+    const { year, team, opponent, scoreTeam, scoreOpponent } = match;
+    const prefix = _.get(options, 'prefixYear') ? `[${year}] ` : '';
+    return `${prefix}${teamName(opponent)} ${scoreOpponent} - ${scoreTeam} ${teamName(team)}`
+}
+
+function matchTitle(match, options) {
+    return isHome(match) ? homeTitle(match, options) : awayTitle(match, options);
+}
+
+function isWin(match) {
+    const { scoreTeam, scoreOpponent, penScore } = match;
+    if (scoreTeam > scoreOpponent) {
+        return true;
+    }
+
+    if (penScore) {
+        const [first, secord] = penScore.split('-');
+        return isHome(match) ? first > secord : secord > first;
+    }
+
+    return false;
+}
+
+function isDraw(match) {
+    const { scoreTeam, scoreOpponent, penScore } = match;
+    return scoreTeam === scoreOpponent && !penScore;
 }
 
 
 const gaColorMap = {
     "0": 'black',
-    "1": "yellow",
-    "2": "#ff00ff", // pink
-    "3": "red", // pink
-    "4": "#dd7e6b",
-    "5": "blue", 
-    "6": "grey", 
+    "1": "#f2988d",
+    "2": "yellow", 
+    "3": "lightgreen",
+    "4": "lightblue",
+    "5": "#7836a8", 
+    "6": "violet", 
     // "7": "black", 
 }
 
@@ -73,7 +128,35 @@ function goalContributrionBackgroundColor(match)  {
 
 function goalContributionTitle(match) {
     const { goals, assists } = match;
-    return `${goals}G & ${assists}A`
+    return `${goals}G️ & ${assists}A`;
+}
+
+
+function goalContributionDetail(match) {
+    const { goals, assists, assistsOrder, goalsOrder, xg } = match;
+
+
+    const lines = [];
+    if (goals > 0) {
+        const goalLine = `${_.repeat('⚽', goals)}️ (${goalsOrder.map(o => ordinalNumber(o)).join(', ')}) / xG:${xg}`;
+        lines.push(goalLine)
+
+        const typeFn = (arrTypes) => arrTypes.filter(type => match[type] > 0).map((type) => {
+            return `<span class="text-warning">${match[type]} ${matchAttrTitleMap[type] || type}</span>`
+        }).join(', ');
+
+        const typeDetail = typeFn(['freeKicks', 'insideBox', 'outsideBox', 'pens'])
+        lines.push(typeDetail)
+        const bodyDetai = typeFn(['left', 'right', 'head', 'other'])
+        lines.push(bodyDetai)
+    }
+
+    if (assists > 0) {
+        const assistLine = `️${_.repeat('️🅰️️', assists)} (${assistsOrder.map(o => ordinalNumber(o)).join(', ')})`;
+        lines.push(assistLine)
+    }
+
+    return lines.join('<br />');
 }
 
 // @see: https://fullcalendar.io/docs/rrule-plugin
@@ -110,29 +193,24 @@ const competitionColorMap = {
     'Trophée des Champions': 'yellow',
     'Finalissima': 'darkblue',
     'Club World Cup': 'yellow',
+    'Coupe de France': 'yellow',
 }
 
 // https://fullcalendar.io/docs/event-object
-function matchToEvent(match, ) { 
-    const { id, homeAway, team, goals, allAssists, assists, competition, year } = match;
-    const date = new Date(id)
-    const  isHome = homeAway === 'H';
-
+function matchToEvent(match) { 
+    const { id, goals, assists, competition,  } = match;
+    
     let totalGA = assists  + goals;
-    const title = isHome ? homeTitle(match) : awayTitle(match);
-
     if (!competitionColorMap[competition]) {
         console.warn(">>> not found color for competition", competition)
     }
 
+    const date = new Date(id)
     const repeatOptions = matchRepeatOptions(date);
-
-    const preTitle = _.isEmpty(repeatOptions) ? "" : `[${year}] `
-    // console.log(repeatOptions)
 
     return {
         id,
-        title: `${preTitle}${title}`,
+        title: matchTitle(match, { prefixYear: true }),
         constraint: competition,
         start: new Date(date).toISOString(),
         // start: new Date(match.date).toISOString(),
@@ -142,40 +220,64 @@ function matchToEvent(match, ) {
             ...match,
         },
         rrule: repeatOptions,
-        // backgroundColor: goalContributrionBackgroundColor(match),
-        // backgroundColor: 'pink',
-        // description: `${goals}G ${assists}A`,
-        // eventContent: (info) => {
-        //     console.log("^^", info)
-        // }
-        // eventName: `[${year}] ${title}`,
-        // date: date,
-        // dateColor,
-        // className: `ga${GA} ${goals > 3 ? 'hattrick': ''}`,
-        // onclick: (e) => {
-        //     console.log(match)
-        //     alert(JSON.stringify(match, null, 2))
-        // }
     }
 }
 
 
 function matchesToEvents() {
-    return _.flatten(_.map(dateMatchesMap, (matches, date) => {
+    const events = _.flatten(_.map(dateMatchesMap, (matches, date) => {
         const [day, month] = date.split('-')
         return _.map(matches, match => {
             match.id = `${match.year}-${month}-${day}`;
             match.videos = matchVideosMap[match.id];
+            match.tweets = matchTweetsMap[match.id];
             return matchToEvent(match)
         })
     }))
+
+    _.reduce(_.orderBy(events, 'id'), (aggregate, event) => {
+        const { extendedProps: { totalGA, goals, assists }} = event;
+        if (totalGA <= 0) {
+            return aggregate;
+        }
+
+        if (goals > 0) {
+            const nextOrder = aggregate.goalOrder + 1;
+            event.extendedProps.goalsOrder = _.range(nextOrder, nextOrder + goals);
+            aggregate.goalOrder += goals;
+        }
+
+        if (assists > 0) {
+            const nextOrder = aggregate.assistOrder + 1;
+            event.extendedProps.assistsOrder = _.range(nextOrder, nextOrder + assists);
+            aggregate.assistOrder += assists;
+        }
+
+        
+        return aggregate
+    }, {
+        goalOrder: 0,
+        assistOrder: 0,
+    })
+
+    return events;
 }
 
 
-function matchDetailModelString(match) {
-    const lines = [
-        goalContributionTitle(match)
-    ];
+function matchDetailModalTitle(match) {
+    const textClass = isWin(match) ? 'text-success' : 
+                      isDraw(match) ? 'text-info' : 'text-danger'
+    // competition
+    return `<div class="${textClass}">
+        [${match.competition}] ${matchTitle(match)} (${match.id})</div>`
+}
+
+
+function matchDetailModalBody(match) {
+    const lines = [];
+
+    // append goal contribution
+    lines.push(goalContributionDetail(match));
 
     // append video 
     _.map(match.videos, (videoId) => {
@@ -185,46 +287,49 @@ function matchDetailModelString(match) {
         lines.push('<hr />')
     });
 
-    
-    // <iframe width="400" height="300" frameborder="0" allowfullscreen=""></iframe>
+    // append tweets
+    _.map(match.tweets, (tweet) => {
+        lines.push(tweet)
+    });
 
-    const omitAttrs =  [
-    'year', 'competition', 'totalGA', 'goals', 'assists', 'team', 'opponent',
-    'scoreTeam', 'scoreOpponent'
-    ];
-    _.map(_.omit(match, omitAttrs), (value, prop) => lines.push(`<div><strong>${prop}</strong>: ${value}</div>`));
+    // round: F
+    // started: 1
+    // minsPlayed: 120
+    // pensMissed: 0
+    // shots: 8
+    // shotsOnTarget: 4
+    // keyPasses: 2
+    // successfulDribbles: 6
+    // throughballs: 1
+    // aerialDuels: 0
+    // motm: 1
+    // rating: 10
+    // freeKickAttempts: -
+    // bigChancesCreated: -
+    // xg: 0
+    // reboundGkAssist: 1
+    // allAssists: 1
+    // ftScore: 4-4
+    // id: 2015-08-11
+    
+    const pickAttrs = ['season', 'round', 'minsPlayed', 'keyPasses', 'throughballs', 'bigChancesCreated', 'motm', 'started']
+
+    const bodyContent = pickAttrs
+                        .filter(attr => match[attr])
+                        .map(attr => `<tr><td><strong>${matchAttrTitleMap[attr] || attr}</strong></td><td>${match[attr]}</td></tr>`)
+                        .join('')
+
+    lines.push(`<table class="table"><tbody>${bodyContent}</tbody></table>`)
+
+    // const omitAttrs =  [
+    // 'year', 'competition', 'totalGA', 'goals', 'assists', 'team', 'opponent',
+    // 'homeAway', 'scoreTeam', 'scoreOpponent', 'tweets', 'videos', 'goalsOrder', 'assistsOrder', 
+    // 'hatTricks','freeKicks', 'insideBox', 'outsideBox', 'pens', 
+    // 'left', 'right', 'head', 'other'
+    // ];
+    // _.map(_.omit(match, omitAttrs), (value, prop) => lines.push(`<div><strong>${prop}</strong>: ${value}</div>`));
 
     return lines.join("\n");
+
+
 }
-
-// function matchesToEventsSameDay() {
-//     return _.flatten(_.map(dateMatchesMap, (matches, date) => {
-//         const [day, month] = date.split('-')
-//         // ${match.year}
-//         const year = new Date().getFullYear()
-//         return _.map(matches, match => matchToEvent(match, new Date(`${year}-${month}-${day}`)))
-//     }))
-// }
-
-
-
-
-// function getTodayMatches() {
-//     const currentDate = new Date();
-//     const todayKey = currentDate.getDate().toString().padStart(2, '0') 
-//                     + '-' 
-//                     + (currentDate.getMonth() + 1).toString().padStart(2, '0');
-//     const todayMatches = dateMatchesMap[todayKey]
-//     return todayMatches || []
-// }
-
-// console.log("Today matches:", JSON.stringify(todayMatches))
-// var calendar = $("#calendar").calendarGC({
-//     // events: _.map(getTodayMatches(), match => matchToEvent(match, new Date()))
-//     events: _.flatten(_.map(dateMatchesMap, (matches, date) => {
-//         const [day, month] = date.split('-')
-//         // ${match.year}
-//         const year = new Date().getFullYear()
-//         return _.map(matches, match => matchToEvent(match, new Date(`${year}-${month}-${day}`)))
-//     }))
-// });
