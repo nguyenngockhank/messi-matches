@@ -10,6 +10,12 @@ npm run fetch
 ```
 new matches will be store at `frontend/js/matches.js`
 
+### Build front end JS
+
+```
+npm run build
+```
+
 ## Run Front end
 
 Open `frontend/index.html` with your browser
