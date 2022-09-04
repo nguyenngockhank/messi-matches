@@ -1,26 +1,36 @@
 import _ from '../lodash';
 import { isHome } from "./isHome";
+import { teamShortNameMap } from "../data/teamShortNameMap";
 
-export const aliasTeamNameMap = {
-    'Barcelona': 'Barca',
-    'Paris Saint-Germain': 'PSG',
-    'Manchester City': 'Man City',
+window.missTeamName = {}
+
+export function teamName(name, options) {
+    if (!_.get(options, 'shortName')) {
+        return name;
+    }
+
+    if (!teamShortNameMap[name] && !window.missTeamName[name]) {
+        window.missTeamName[name] = name;
+        console.warn('>>> not found short name for', "`" + name +"`")
+    }
+
+    return teamShortNameMap[name] || name;
 }
 
-export function teamName(name) {
-    return aliasTeamNameMap[name] || name;
+function buildYearPrefix(match, options) {
+    return _.get(options, 'prefixYear') ? `[${match.year}] ` : '';
 }
 
 function homeTitle(match, options) {
-    const { year, team, opponent, scoreTeam, scoreOpponent } = match;
-    const prefix = _.get(options, 'prefixYear') ? `[${year}] ` : '';
-    return `${prefix}${teamName(team)} ${scoreTeam} - ${scoreOpponent} ${teamName(opponent)}`
+    const { team, opponent, scoreTeam, scoreOpponent } = match;
+    const prefix = buildYearPrefix(match, options);
+    return `${prefix}${teamName(team, options)} ${scoreTeam} - ${scoreOpponent} ${teamName(opponent, options)}`
 }
 
 function awayTitle(match, options) {
-    const { year, team, opponent, scoreTeam, scoreOpponent } = match;
-    const prefix = _.get(options, 'prefixYear') ? `[${year}] ` : '';
-    return `${prefix}${teamName(opponent)} ${scoreOpponent} - ${scoreTeam} ${teamName(team)}`
+    const { team, opponent, scoreTeam, scoreOpponent } = match;
+    const prefix = buildYearPrefix(match, options);
+    return `${prefix}${teamName(opponent, options)} ${scoreOpponent} - ${scoreTeam} ${teamName(team, options)}`
 }
 
 export function matchTitle(match, options) {

@@ -33,7 +33,7 @@ export function matchToEvent(match) {
 
     return {
         id,
-        title: matchTitle(match, { prefixYear: true }),
+        title: matchTitle(match, { prefixYear: true, shortName: true }),
         constraint: competition,
         start: new Date(date).toISOString(),
         // start: new Date(match.date).toISOString(),
