@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon scrape/messivscr/fetch.ts",
+    "dev-fetch": "npx nodemon scrape/messivscr/fetch.ts",
     "fetch": "node dist/messivscr/fetch",
-    "build": "tsc"
+    "build-ts": "tsc",
+    "build": "webpack --mode=production",
+    "watch": "webpack --watch --mode=development"
   },
   "author": "",
   "license": "ISC",
@@ -17,9 +19,11 @@
     "nedb-promises": "^6.1.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.183",
     "nodemon": "^2.0.19",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4",
-    "@types/lodash": "^4.14.183"
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }
