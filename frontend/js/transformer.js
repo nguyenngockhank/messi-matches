@@ -4,10 +4,14 @@ const matchAttrTitleMap = {
     right: 'right foot', 
     'insideBox': 'inside box',
     'outsideBox': 'outside box',
-    'freeKicks': 'free kick',
+    'freeKicks': 'free kicks',
     'pensMissed': 'missed pens',
-    'started': 'started',
-   
+    'started': 'Starting lineup',
+    'minsPlayed': 'Minutes played',
+    'motm': 'Man of the match',
+    'season': 'Season',
+    'keyPasses': 'Key passes',
+    'bigChancesCreated': 'Big chances created',
 }
 
 
@@ -138,7 +142,8 @@ function goalContributionDetail(match) {
 
     const lines = [];
     if (goals > 0) {
-        const goalLine = `${_.repeat('⚽', goals)}️ (${goalsOrder.map(o => ordinalNumber(o)).join(', ')}) / xG:${xg}`;
+        const xGPostfix = xg ? `/ xG:${xg}` : '';
+        const goalLine = `${_.repeat('⚽', goals)}️ (${goalsOrder.map(o => ordinalNumber(o)).join(', ')}) ${xGPostfix}`;
         lines.push(goalLine)
 
         const typeFn = (arrTypes) => arrTypes.filter(type => match[type] > 0).map((type) => {

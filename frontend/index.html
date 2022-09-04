@@ -156,8 +156,16 @@
         $(el).css('background', goalContributrionBackgroundColor(extendedProps))
         $(el).prop('title', goalContributionTitle(extendedProps))
 
-        if (extendedProps.tweets) {
-          $(el).find('.fc-daygrid-event-dot').addClass('event-prefix').removeClass('fc-daygrid-event-dot').html(`<i class="bi bi-twitter"></i>`)
+        if (extendedProps.tweets || extendedProps.videos) {
+          const $el = $(el).find('.fc-daygrid-event-dot');
+          $el.addClass('event-prefix').removeClass('fc-daygrid-event-dot');
+
+          if (extendedProps.videos) {
+            $el.append(`<i class="bi bi-youtube"></i>`)
+          }
+          if (extendedProps.tweets) {
+            $el.append(`<i class="bi bi-twitter"></i>`)
+          }
         }
 
         $(el).click(() => {
