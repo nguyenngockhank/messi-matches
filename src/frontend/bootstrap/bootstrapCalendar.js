@@ -1,3 +1,4 @@
+import _ from '../lodash';
 import { matchesToEvents } from '../transformers/matchesToEvents'
 import { goalContributrionBgColor } from '../transformers/goalContributrionBgColor'
 import { goalContributionTitle } from '../transformers/goalContributionTitle'

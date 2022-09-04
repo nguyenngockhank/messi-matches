@@ -1,6 +1,8 @@
+import _ from '../lodash';
 import { matchToEvent } from './matchToEvent'
 import { matchTweetsMap } from '../data/matchTweetsMap'
 import { matchVideosMap } from '../data/matchVideosMap'
+
 
 function enrichMatch(match, date) {
     const [day, month] = date.split('-')

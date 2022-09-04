@@ -1,3 +1,4 @@
+import _ from '../../lodash';
 import { goalContributionDetail } from './goalContributionDetail'
 import { matchAttrTitleMap } from '../../data/static'
 

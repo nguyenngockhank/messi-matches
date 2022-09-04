@@ -8,5 +8,11 @@ export const matchTweetsMap = {
   ],
   '2009-03-22': [
     `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Lionel Messi goal vs Malaga 2009 is up there as one of his most underrated goal. <a href="https://twitter.com/hashtag/Barcelona?src=hash&amp;ref_src=twsrc%5Etfw">#Barcelona</a> <a href="https://twitter.com/hashtag/Messi%F0%93%83%B5?src=hash&amp;ref_src=twsrc%5Etfw">#Messi𓃵</a><br> <a href="https://t.co/ViJAMtZYVF">pic.twitter.com/ViJAMtZYVF</a></p>&mdash; What A Goal Messi (@WhatAGoalLeo) <a href="https://twitter.com/WhatAGoalLeo/status/1566210338755907588?ref_src=twsrc%5Etfw">September 3, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
+  ],
+  '2022-07-31': [
+    `<blockquote class="twitter-tweet"><p lang="it" dir="ltr">Lionel Messi vs Nantes <a href="https://t.co/2dxtgmj8xY">pic.twitter.com/2dxtgmj8xY</a></p>&mdash; PSG Comps (@CompsPSG) <a href="https://twitter.com/CompsPSG/status/1553889047386492929?ref_src=twsrc%5Etfw">July 31, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
+  ],
+  '2022-09-03': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Messi vs Nantes<br><br>What a performance<br>The greatest of all time <a href="https://t.co/HLxejxjTLM">pic.twitter.com/HLxejxjTLM</a></p>&mdash; Ziad is NOT in pain  (@Ziad_EJ) <a href="https://twitter.com/Ziad_EJ/status/1566184352513490946?ref_src=twsrc%5Etfw">September 3, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
   ]
 }
