@@ -2,13 +2,13 @@
 // https://www.sporcle.com/games/easterbunny/football-club--by-abbreviations-/results
 // https://liaison.reuters.com/tools/sports-team-codes
 export const teamShortNameMap = {
-    "Las Palmas": "Las Palmas",
-    "Numancia": "Numancia",
-    "Granada": "Granada",
-    "Deportivo La Coruna": "Deportivo La Coruna",
-    "Sporting Gijon": "Sporting Gijon",
-    "Alaves": "Alaves",
-    "Malaga": "Malaga",
+    "Las Palmas": "LPM",
+    "Numancia": "NUM", 
+    "Granada": "GRA", 
+    "Deportivo La Coruna": "DEP",
+    "Sporting Gijon": "SPO",
+    "Alaves": "ALA",
+    "Malaga": "MAG",
     "Real Zaragoza": "Real Zaragoza", // 404
     "St Etienne": "St Etienne", // 404
     "Mallorca": "Mallorca",  // 404
@@ -19,8 +19,8 @@ export const teamShortNameMap = {
     "Huesca": "Huesca", // 404
     "Atlante F.C.": "Atlante F.C.", // 404
     "Benidorm": "Benidorm", // 404
-    "Glasgow Rangers": "Glasgow Rangers", // 404
-    "Racing Santander": "Racing Santander", // 404
+    "Glasgow Rangers": "CEU", // 404
+    "Racing Santander": "RAC", // 404
     "Rubin Kazan": "Rubin Kazan", // 404
     "APOEL": "APOEL", // 404 - Greeks
     "Albacete Balompie": "Albacete Balompie", // 404
@@ -117,7 +117,6 @@ export const teamShortNameMap = {
     "FC Porto": "POR",
 
     // contries 
-
     "Romania": "ROM", // 404
     "Costa Rica": "CRC", 
     "Trinidad and Tobago": "TTO",
