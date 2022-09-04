@@ -9,7 +9,6 @@ export const teamShortNameMap = {
     "Sporting Gijon": "Sporting Gijon",
     "Alaves": "Alaves",
     "Malaga": "Malaga",
-    "Romania": "Romania", // 404
     "Real Zaragoza": "Real Zaragoza", // 404
     "St Etienne": "St Etienne", // 404
     "Mallorca": "Mallorca",  // 404
@@ -18,26 +17,24 @@ export const teamShortNameMap = {
     "Huelva": "Huelva", // 404
     "BATE Borisov": "BATE Borisov", // 404
     "Huesca": "Huesca", // 404
-    "Guatemala": "Guatemala", // 404
     "Atlante F.C.": "Atlante F.C.", // 404
     "Benidorm": "Benidorm", // 404
     "Glasgow Rangers": "Glasgow Rangers", // 404
     "Racing Santander": "Racing Santander", // 404
     "Rubin Kazan": "Rubin Kazan", // 404
-    "Bosnia and Herzegovina": "Bosnia and Herzegovina", // 404
     "APOEL": "APOEL", // 404 - Greeks
     "Albacete Balompie": "Albacete Balompie", // 404
     "Xerez": "Xerez", // 404
     "Hercules": "Hercules", // 404
-    "Borussia Monchengladbach": "BMG", 
     "AD Ceuta": "AD Ceuta", // 404
     "Cultural Leonesa": "Cultural Leonesa",  // 404
     "Gimnastic": "Gimnastic",  // 404
     "Real Murcia": "Real Murcia", // 404
     "UDA Gramenet": "UDA Gramenet",// 404
-    "Tenerife": "TFN", // 404
     // 
-
+    "Borussia Monchengladbach": "BMG", 
+    "Tenerife": "TFN", // 404
+    "Guatemala": "GTM", 
     "Bordeaux": "BOR",
     'Arsenal': 'ARS',
     'Barcelona': 'BAR',
@@ -120,9 +117,12 @@ export const teamShortNameMap = {
     "FC Porto": "POR",
 
     // contries 
+
+    "Romania": "ROM", // 404
     "Costa Rica": "CRC", 
     "Trinidad and Tobago": "TTO",
     "Republic of Ireland": "IRL",
+    "Bosnia and Herzegovina": "BIH", // 404
     "Bolivia": "BOL",
     "Peru": "PER",
     "Chile": "CHL",
