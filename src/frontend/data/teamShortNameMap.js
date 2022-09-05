@@ -16,7 +16,7 @@ export const teamShortNameMap = {
     "Panathinaikos": "Panathinaikos", // 404
     "Huelva": "Huelva", // 404
     "BATE Borisov": "BATE Borisov", // 404
-    "Huesca": "Huesca", // 404
+    "Huesca": "HUE", // 404
     "Atlante F.C.": "Atlante F.C.", // 404
     "Benidorm": "Benidorm", // 404
     "Glasgow Rangers": "CEU", // 404

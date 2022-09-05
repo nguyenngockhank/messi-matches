@@ -14,5 +14,8 @@ export const matchTweetsMap = {
   ],
   '2022-09-03': [
     `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Messi vs Nantes<br><br>What a performance<br>The greatest of all time <a href="https://t.co/HLxejxjTLM">pic.twitter.com/HLxejxjTLM</a></p>&mdash; Ziad is NOT in pain  (@Ziad_EJ) <a href="https://twitter.com/Ziad_EJ/status/1566184352513490946?ref_src=twsrc%5Etfw">September 3, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
+  ],
+  '2019-02-23': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Throwback, when Messi had a masterclass against Sevilla with 3 insane goals &amp; 1 assist. It was the 50th hat-trick of his career (!). When asked about it, Leo answered in the most humble way 🐐 😍<a href="https://t.co/iZ9dHamXsx">pic.twitter.com/iZ9dHamXsx</a></p>&mdash; Jan  (@FutbolJan10) <a href="https://twitter.com/FutbolJan10/status/1566412158358921221?ref_src=twsrc%5Etfw">September 4, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
   ]
 }

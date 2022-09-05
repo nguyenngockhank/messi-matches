@@ -4,6 +4,9 @@ import { goalContributrionBgColor } from '../transformers/goalContributrionBgCol
 import { goalContributionTitle } from '../transformers/goalContributionTitle'
 import { matchDetailModalTitle } from '../transformers/match-modal/matchDetailModalTitle'
 import { matchDetailModalBody } from '../transformers/match-modal/matchDetailModalBody'
+import { createGaFilter } from './gaFilter'
+
+const displayNoneClass = 'd-none';
 
 export function bootstrapCalendar() {
     const $matchModal = new bootstrap.Modal(document.getElementById('matchDetail'))
@@ -12,8 +15,11 @@ export function bootstrapCalendar() {
       var calendarEl = document.getElementById('calendar');
   
       var events = matchesToEvents();
-  
-  
+      
+      const gaFilter = createGaFilter((filter) => {
+        calendar.render();
+      })
+      
       var calendar = new FullCalendar.Calendar(calendarEl, {
         timeZone: 'UTC',
         headerToolbar: {
@@ -85,7 +91,26 @@ export function bootstrapCalendar() {
             $matchModal.show();
           })
         },
+        eventClassNames: function(arg) {
+        console.log(gaFilter)
+          if(_.every(gaFilter, (val) => !val)) {
+            return;
+          }
+
+          const gaDisplay = Object.keys(_.pickBy(gaFilter, v => v)).map(v => Number(v))
+          if (!gaDisplay || gaDisplay.length === 0) {
+            return;
+          }
+          
+          const { event: { extendedProps: { goals, assists} }} = arg;
+          const match = gaDisplay.includes(goals) || gaDisplay.includes(assists)
+          if (match) {
+            return;
+          }
+          return displayNoneClass
+        }
       });
+
       calendar.render();
     });
 }

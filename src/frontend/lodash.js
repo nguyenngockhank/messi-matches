@@ -7,6 +7,8 @@ import get from 'lodash/get';
 import orderBy from 'lodash/orderBy';
 import repeat from 'lodash/repeat';
 import reduce from 'lodash/reduce';
+import every from 'lodash/every';
+import pickBy from 'lodash/pickBy';
 
 export const _ = {
     first,
@@ -18,6 +20,8 @@ export const _ = {
     orderBy,
     repeat,
     reduce,
+    every,
+    pickBy,
 }
 
 export default _;
