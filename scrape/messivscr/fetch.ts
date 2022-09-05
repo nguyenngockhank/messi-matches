@@ -10,7 +10,7 @@ async function fetchEvents() {
     return response.data
 }
 
-function transformResult(apiResult) {
+function transformForFrontEnd(apiResult) {
     const matches = _.get(apiResult, "result.data.allSheetMessiMatchHistory.edges").map(edge => edge.node);
     console.log("> Found match" , matches.length)
     const dateMatchesMap = _.groupBy(matches, "date");
@@ -32,14 +32,23 @@ function transformResult(apiResult) {
     })
 }
 
-
-function storeAsJsFile(data, path) {
-    fs.writeFileSync(path, `var dateMatchesMap = ${JSON.stringify(data)}`)
+function transformForAnalytics(apiResult) {
+    const matches = _.get(apiResult, "result.data.allSheetMessiMatchHistory.edges").map(edge => edge.node);
+    return matches.map(match => {
+        return _.mapValues(match, (attr) => { 
+            const numVal = _.toNumber(attr); 
+            return _.isNaN(numVal) ? attr : numVal 
+        })
+    })
 }
 
 
 fetchEvents().then((apiResult) => {
-    const data = transformResult(apiResult);
-    const storedPath = 'frontend/js/matches.js';
-    storeAsJsFile(data, storedPath);
+    const feData = transformForFrontEnd(apiResult);
+    const feStoredPath = 'frontend/js/matches.js';
+    fs.writeFileSync(feStoredPath, `var dateMatchesMap = ${JSON.stringify(feData)}`)
+
+    const matchesJson = transformForAnalytics(apiResult);
+    const analyticStoredPath = 'src/analytics/matches.json';
+    fs.writeFileSync(analyticStoredPath, JSON.stringify(matchesJson))
 })
