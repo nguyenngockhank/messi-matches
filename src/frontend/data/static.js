@@ -22,8 +22,7 @@ export const gaColorMap = {
     "3": "lightgreen",
     "4": "lightblue",
     "5": "#7836a8", 
-    "6": "violet", 
-    // "7": "black", 
+    // "6": "violet", 
 }
 
 const competitionColorMap = {
