@@ -9,6 +9,7 @@ import repeat from 'lodash/repeat';
 import reduce from 'lodash/reduce';
 import every from 'lodash/every';
 import pickBy from 'lodash/pickBy';
+import isNumber from 'lodash/isNumber';
 
 export const _ = {
     first,
@@ -22,6 +23,7 @@ export const _ = {
     reduce,
     every,
     pickBy,
+    isNumber,
 }
 
 export default _;

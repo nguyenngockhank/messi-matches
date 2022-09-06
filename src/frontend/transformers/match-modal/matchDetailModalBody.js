@@ -19,7 +19,25 @@ export function matchDetailModalBody(match) {
     // append goal contribution
     lines.push(goalContributionDetail(match));
 
-    const pickAttrs = ['season', 'round', 'minsPlayed', 'keyPasses', 'throughballs', 'bigChancesCreated', 'motm', 'started']
+
+    const { bigChancesCreated, keyPasses } = match;
+    if (bigChancesCreated && _.isNumber(bigChancesCreated)) {
+        lines.push(`<div>🎁 ${bigChancesCreated} big chances created</div>`);
+    }
+
+    if (bigChancesCreated && _.isNumber(bigChancesCreated)) {
+        lines.push(`<div>🔑 ${keyPasses} key passes</div>`);
+    }
+
+    // 👌 41 touches
+    //   💨 2/2 successful dribbles
+    // ⚔️ 6/9 duels won
+    // 📈 8.4 SofaScore rating
+    // 🧲 2 interceptions
+    //     🔭 5/5 accurate long balls
+    // 👟 73/88 accurate passes
+
+    const pickAttrs = ['season', 'round', 'minsPlayed', 'throughballs', 'motm', 'started']
 
     const bodyContent = pickAttrs
                         .filter(attr => match[attr])
