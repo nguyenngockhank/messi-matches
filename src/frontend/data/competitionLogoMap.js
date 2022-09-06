@@ -7,3 +7,12 @@ export const competitionLogoMap = {
     'World Cup Qualifier': 'wcq.png',
     'Ligue 1': 'l1.png',
 }
+
+// 'UEFA Super Cup': `darkblue`,
+// 'International Friendly': `lightblue`,
+// 'Copa del Rey': 'silver',
+// 'Supercopa de Espana': 'orange',
+// 'Trophée des Champions': 'yellow',
+// 'Finalissima': 'darkblue',
+// 'Club World Cup': 'yellow',
+// 'Coupe de France': 'yellow',
