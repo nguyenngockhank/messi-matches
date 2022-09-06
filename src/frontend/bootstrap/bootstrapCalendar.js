@@ -1,5 +1,6 @@
 import _ from '../lodash';
 import { matchesToEvents } from '../transformers/matchesToEvents'
+import { competitionLogoMap } from '../data/competitionLogoMap'
 import { goalContributrionBgColor } from '../transformers/goalContributrionBgColor'
 import { goalContributionTitle } from '../transformers/goalContributionTitle'
 import { matchDetailModalTitle } from '../transformers/match-modal/matchDetailModalTitle'
@@ -62,37 +63,28 @@ export function bootstrapCalendar() {
           }
         },
         eventDidMount: function(arg) {
-          const {event: { extendedProps, _def }, el} = arg;
-          $(el).css('background', goalContributrionBgColor(extendedProps))
-          $(el).prop('title', goalContributionTitle(extendedProps))
-  
-          if (extendedProps.tweets || extendedProps.videos) {
-            const $el = $(el).find('.fc-daygrid-event-dot');
-            $el.addClass('event-prefix').removeClass('fc-daygrid-event-dot');
-  
-            if (extendedProps.videos) {
-              $el.append(`<i class="bi bi-youtube"></i>`)
-            }
-            if (extendedProps.tweets) {
-              $el.append(`<i class="bi bi-twitter"></i>`)
-            }
-          }
-  
+          const {event: { extendedProps: match, _def }, el} = arg;
+          $(el).css('background', goalContributrionBgColor(match))
+          $(el).prop('title', goalContributionTitle(match))
+          
+          addSocialIcon(el, match);
+          addCompetitionIcon(el, match);
+
+          // competitionLogoMap
           $(el).click(() => {
             const currentShownMatchId  = $('#matchDetail').data('match-id');
-            if (currentShownMatchId !== extendedProps.id) {
-              $('#matchDetail').data('match-id', extendedProps.id);
+            if (currentShownMatchId !== match.id) {
+              $('#matchDetail').data('match-id', match.id);
               // change title
-              $('#matchDetail .modal-title').html( matchDetailModalTitle(extendedProps))
+              $('#matchDetail .modal-title').html( matchDetailModalTitle(match))
               // change body 
-              $('#matchDetail .modal-body').html(matchDetailModalBody(extendedProps));
+              $('#matchDetail .modal-body').html(matchDetailModalBody(match));
             }
   
             $matchModal.show();
           })
         },
         eventClassNames: function(arg) {
-        console.log(gaFilter)
           if(_.every(gaFilter, (val) => !val)) {
             return;
           }
@@ -113,4 +105,24 @@ export function bootstrapCalendar() {
 
       calendar.render();
     });
+}
+
+function addSocialIcon(el, match) {
+  if (match.tweets || match.videos) {
+    const $el = $(el).find('.fc-event-title');
+    // $el.addClass('event-prefix').removeClass('fc-daygrid-event-dot');
+    // const $el = $(el)
+    if (match.videos) {
+      $el.append(`<i class="bi bi-youtube"></i>`)
+    }
+    if (match.tweets) {
+      $el.append(`<i class="bi bi-twitter"></i>`)
+    }
+  }
+}
+
+function addCompetitionIcon(el, match) {
+  const { competition } = match;
+  const logo = competitionLogoMap[competition]
+  logo && $(el).find('.fc-event-title').prepend(`<span class="comp-container"><img class="comp-icon" title="${competition}" src="./img/${logo}"/></span>`)
 }

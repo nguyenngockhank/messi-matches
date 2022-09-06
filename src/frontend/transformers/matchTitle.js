@@ -18,7 +18,7 @@ export function teamName(name, options) {
 }
 
 function buildYearPrefix(match, options) {
-    return _.get(options, 'prefixYear') ? `[${match.year}] ` : '';
+    return _.get(options, 'prefixYear') ? ` [${match.year}] ` : '';
 }
 
 function homeTitle(match, options) {

@@ -10,13 +10,13 @@ export const teamShortNameMap = {
     "Alaves": "ALA",
     "Malaga": "MAG",
     "Real Zaragoza": "Real Zaragoza", // 404
-    "St Etienne": "St Etienne", // 404
+    "St Etienne": "ASSE", // 404
     "Mallorca": "Mallorca",  // 404
     "Leganes": "Leganes", // 404
-    "Panathinaikos": "Panathinaikos", // 404
-    "Huelva": "Huelva", // 404
-    "BATE Borisov": "BATE Borisov", // 404
-    "Huesca": "HUE", // 404
+    "Panathinaikos": "PAN",
+    "Huelva": "SCH", // 404
+    "BATE Borisov": "BTE",
+    "Huesca": "HUE",
     "Atlante F.C.": "Atlante F.C.", // 404
     "Benidorm": "Benidorm", // 404
     "Glasgow Rangers": "CEU", // 404

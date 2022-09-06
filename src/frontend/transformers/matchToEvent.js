@@ -21,12 +21,7 @@ function matchRepeatOptions(date) {
 
 // https://fullcalendar.io/docs/event-object
 export function matchToEvent(match) { 
-    const { id, goals, assists, competition, } = match;
-    
-    let totalGA = assists  + goals;
-    // if (!competitionColorMap[competition]) {
-    //     console.warn(">>> not found color for competition", competition)
-    // }
+    const { id, competition, } = match;
 
     const date = new Date(id)
     const repeatOptions = matchRepeatOptions(date);
@@ -36,12 +31,9 @@ export function matchToEvent(match) {
         title: matchTitle(match, { prefixYear: true, shortName: true }),
         constraint: competition,
         start: new Date(date).toISOString(),
-        // start: new Date(match.date).toISOString(),
+        allDay: true,
         // borderColor: competitionColorMap[competition],
-        extendedProps: {
-            totalGA,
-            ...match,
-        },
+        extendedProps: match,
         rrule: repeatOptions,
     }
 }

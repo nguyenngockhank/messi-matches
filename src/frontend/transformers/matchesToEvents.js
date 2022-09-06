@@ -7,6 +7,7 @@ import { matchVideosMap } from '../data/matchVideosMap'
 function enrichMatch(match, date) {
     const [day, month] = date.split('-')
     match.id = `${match.year}-${month}-${day}`;
+    match.totalGA = match.assists + match.goals;
     match.videos = matchVideosMap[match.id];
     match.tweets = matchTweetsMap[match.id];
 }
