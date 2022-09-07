@@ -8,7 +8,7 @@
     "dev-fetch": "npx nodemon scrape/messivscr/fetch.ts",
     "fetch": "node dist/messivscr/fetch",
     "build-ts": "tsc",
-    "build": "webpack --mode=production",
+    "build": "webpack --mode=production  && git add . && git commit -m \"chore: build\"",
     "watch": "webpack --watch --mode=development"
   },
   "author": "",

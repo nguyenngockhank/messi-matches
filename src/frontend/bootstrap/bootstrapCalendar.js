@@ -1,11 +1,13 @@
 import _ from '../lodash';
 import { matchesToEvents } from '../transformers/matchesToEvents'
-import { competitionLogoMap } from '../data/competitionLogoMap'
 import { goalContributrionBgColor } from '../transformers/goalContributrionBgColor'
 import { goalContributionTitle } from '../transformers/goalContributionTitle'
 import { matchDetailModalTitle } from '../transformers/match-modal/matchDetailModalTitle'
 import { matchDetailModalBody } from '../transformers/match-modal/matchDetailModalBody'
 import { createGaFilter } from './gaFilter'
+import { youtubeIcon, twitterIcon } from '../templates/icons';
+import { competitionLogo } from '../templates/competitionLogo';
+import { isFinal } from '../transformers/isFinal';
 
 const displayNoneClass = 'd-none';
 
@@ -26,7 +28,7 @@ export function bootstrapCalendar() {
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: 'dayGridMonth,matchesOnMonth',
+          right: 'dayGridMonth,matchesOnMonth,matchesOnYear',
           // right: 'dayGridMonth,matchesOnYear,matchesOnMonth'
         },
         views: {
@@ -35,11 +37,11 @@ export function bootstrapCalendar() {
           },
           matchesOnYear: {
             type: 'listYear',
-            buttonText: 'Year M'
+            buttonText: 'Year'
           },
           matchesOnMonth: {
             type: 'listMonth',
-            buttonText: 'Month Matches'
+            buttonText: 'Month'
           },
         },
         slotDuration: '01:30:00',
@@ -66,7 +68,11 @@ export function bootstrapCalendar() {
           const {event: { extendedProps: match, _def }, el} = arg;
           $(el).css('background', goalContributrionBgColor(match))
           $(el).prop('title', goalContributionTitle(match))
-          
+
+          if (isFinal(match)) {
+            $(el).addClass('border-start border-info border-3 match-final');
+          }
+
           addSocialIcon(el, match);
           addCompetitionIcon(el, match);
 
@@ -109,20 +115,19 @@ export function bootstrapCalendar() {
 
 function addSocialIcon(el, match) {
   if (match.tweets || match.videos) {
-    const $el = $(el).find('.fc-event-title');
-    // $el.addClass('event-prefix').removeClass('fc-daygrid-event-dot');
-    // const $el = $(el)
     if (match.videos) {
-      $el.append(`<i class="bi bi-youtube"></i>`)
+      $(el).find('.fc-event-title').append(youtubeIcon)
+      $(el).find('.fc-list-event-title').append(youtubeIcon)
     }
     if (match.tweets) {
-      $el.append(`<i class="bi bi-twitter"></i>`)
+      $(el).find('.fc-event-title').append(twitterIcon)
+      $(el).find('.fc-list-event-title').append(twitterIcon)
     }
   }
 }
 
 function addCompetitionIcon(el, match) {
   const { competition } = match;
-  const logo = competitionLogoMap[competition]
-  logo && $(el).find('.fc-event-title').prepend(`<span class="comp-container"><img class="comp-icon" title="${competition}" src="./img/${logo}"/></span>`)
+  $(el).find('.fc-event-title').prepend(competitionLogo(competition))
+  $(el).find('.fc-list-event-title').prepend(competitionLogo(competition))
 }

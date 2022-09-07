@@ -20,23 +20,29 @@
       font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
       font-size: 14px;
   }
-
-  .fc-daygrid a{
-    color: black;
-  }
-
   h1 {
     margin: 25px 0;
     font-size: 34px;
     display: flex;
     justify-content: space-between;
   }
+  #calendar {
+    margin: 25px auto;
+  }
   .fc .fc-daygrid-event {
     margin-top: 1.5px;
     padding-left: 2px;
   }
+  .fc-daygrid a{
+    color: black;
+  }
   .fc-event-title {
     line-height: 17px;
+    display: flex;
+    align-items: center;
+  }
+  .fc-event-title .bi, .fc-list-event-title .bi {
+    margin-left: 2px;
   }
   .event-prefix {
     margin: 0 4px;
@@ -45,15 +51,17 @@
     width: 20px;
     text-align: center;
     display: inline-block;
+    float: left;
+    margin-right: 2px;
   }
   .comp-icon {
-    height: 20px;
+    height: 17px;
   }
-  .fc-event-title .bi {
-    margin-left: 2px;
+  .fc-list-event-title .comp-container {
+    width: 35px;
   }
-  #calendar {
-    margin: 0 auto;
+  .fc-list-event-title .comp-icon {
+    height: 30px;
   }
   .fc-daygrid-event-dot {
     display: none;
