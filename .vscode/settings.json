@@ -5,4 +5,5 @@
     "python.analysis.extraPaths": [
         "${workspaceFolder}/__pypackages__/3.9/lib"
     ],
+    "liveServer.settings.port": 5501,
 }

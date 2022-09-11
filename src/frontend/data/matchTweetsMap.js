@@ -19,6 +19,9 @@ const match2022 = {
   '2022-09-03': [
     `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Messi vs Nantes<br><br>What a performance<br>The greatest of all time <a href="https://t.co/HLxejxjTLM">pic.twitter.com/HLxejxjTLM</a></p>&mdash; Ziad is NOT in pain  (@Ziad_EJ) <a href="https://twitter.com/Ziad_EJ/status/1566184352513490946?ref_src=twsrc%5Etfw">September 3, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
   ],
+  '2022-09-10': [
+    `<blockquote class="twitter-tweet"><p lang="it" dir="ltr">Lionel Messi vs Brest 🎥 <a href="https://t.co/XS7ChCEKWD">pic.twitter.com/XS7ChCEKWD</a></p>&mdash; Messi Comps (@Messi_comps) <a href="https://twitter.com/Messi_comps/status/1568660878198984704?ref_src=twsrc%5Etfw">September 10, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
+  ],
 }
 
 const match2021 = {
