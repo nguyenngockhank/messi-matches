@@ -10,6 +10,12 @@ npm run fetch
 ```
 new matches will be store at `frontend/js/matches.js`
 
+### Run Analyst
+
+```
+pdm run start / start2
+```
+
 ### Build front end JS
 
 ```

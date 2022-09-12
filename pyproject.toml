@@ -16,4 +16,5 @@ build-backend = "pdm.pep517.api"
 [tool]
 [tool.pdm]
 [tool.pdm.scripts]
-start = "python3 src/analytics/test.py"
+start = "python3 src/analytics/goals-body-parts.py"
+start2 = "python3 src/analytics/ga-per-years.py"
