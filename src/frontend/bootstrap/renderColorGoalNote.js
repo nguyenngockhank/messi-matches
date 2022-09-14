@@ -1,20 +1,20 @@
 import { gaColorMap } from '../data/static';
-import { getGaFilter } from './gaFilter';
+import { getMatchFilter } from './matchFilter';
 
 const activeClass = 'border-info border';
 
-export function drawColorGoalNote() {
+export function renderColorGoalNote() {
   for (const count in gaColorMap) {
-    $('.note').append(`<span class="ga-selector" style="background-color: ${gaColorMap[count]}">${count}</span>`);
+    $('#gaFilter').append(`<span class="ga-selector" style="background-color: ${gaColorMap[count]}">${count}</span>`);
   }
 
-  $('.note .ga-selector').click(function(){
+  $('#gaFilter .ga-selector').click(function(){
     const $el = $(this);
     const counter = $el.html();
     $el.toggleClass(activeClass);
     const active = $el.hasClass(activeClass);
 
-    const gaFilter = getGaFilter();
+    const gaFilter = getMatchFilter();
     gaFilter[counter] = active;
   })
 }

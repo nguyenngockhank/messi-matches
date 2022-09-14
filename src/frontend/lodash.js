@@ -10,8 +10,12 @@ import reduce from 'lodash/reduce';
 import every from 'lodash/every';
 import pickBy from 'lodash/pickBy';
 import isNumber from 'lodash/isNumber';
+import uniq from 'lodash/uniq';
+import some from 'lodash/some';
 
 export const _ = {
+    some,
+    uniq,
     first,
     last,
     range,

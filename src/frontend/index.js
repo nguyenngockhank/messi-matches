@@ -1,5 +1,18 @@
-import { bootstrapCalendar } from './bootstrap/bootstrapCalendar'
-import { drawColorGoalNote } from './bootstrap/drawColorGoalNote'
 
-drawColorGoalNote();
-bootstrapCalendar();
+import { matchesToEvents } from './transformers/matchesToEvents'
+import { bootstrapCalendar } from './bootstrap/bootstrapCalendar'
+import { renderColorGoalNote } from './bootstrap/renderColorGoalNote'
+import { renderMatchSelectOptions } from './bootstrap/renderMatchSelectOptions'
+import _ from './lodash';
+
+var events = matchesToEvents();
+
+const competitionList = _.uniq(_.map(events, (item) => item.extendedProps.competition)).sort()
+const yearList = _.uniq(_.map(events, (item) => item.extendedProps.year)).sort()
+const opponentList = _.uniq(_.map(events, (item) => item.extendedProps.opponent)).sort()
+
+renderColorGoalNote();
+renderMatchSelectOptions('#tournamentSelect', competitionList, 'competition')
+renderMatchSelectOptions('#opponentSelect', opponentList, 'opponent')
+renderMatchSelectOptions('#yearSelect', yearList, 'year')
+bootstrapCalendar(events);

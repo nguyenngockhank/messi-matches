@@ -15,7 +15,7 @@
   <style>
 
   body {
-      margin: 0 10px;
+      /* margin: 0 10px; */
       padding: 0;
       font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
       font-size: 14px;
@@ -27,7 +27,7 @@
     justify-content: space-between;
   }
   #calendar {
-    margin: 25px auto;
+    margin: 25px 15px;
   }
   .fc .fc-daygrid-event {
     margin-top: 1.5px;
@@ -66,10 +66,14 @@
   .fc-daygrid-event-dot {
     display: none;
   }
-  .note {
+
+  #filter-wrapper {
+    margin: 15px;
+  }
+  #gaFilter {
     font-size: 15px;
   }
-  .note .ga-selector {
+  #gaFilter .ga-selector {
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -86,15 +90,49 @@
   </style>
 </head>
 <body>
-  <h1>
-    Messi Matches
-    
-    <div class="note">
-      G/A Colors:
+  <nav class="navbar navbar-dark bg-dark navbar-expand-md">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><i class="bi bi-trophy-fill"></i> Messi's Legacy</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">Home</a>
+          </li>
+      </div>
     </div>
-  </h1>
+  </nav>
+  <!-- end nav -->
 
- 
+  <div  class="container-fluid">
+    <div class="row" style="margin-top: 20px">
+      <div id="gaFilter" class="col-md-4 col-sm-12">
+        G/A Colors:
+      </div>
+      <div class="col-md-8 col-sm-12">
+        <div class="row">
+          <div class="col">
+            <select id="tournamentSelect" class="form-select form-select-sm">
+              <option selected value="">-- Select Tournament --</option>
+            </select>
+          </div>
+          <div class="col">
+            <select id="opponentSelect" class="form-select form-select-sm">
+              <option selected value="">-- Select Opponent --</option>
+            </select>
+          </div>
+          <div class="col">
+            <select id="yearSelect"  class="form-select form-select-sm">
+              <option selected value="">-- Select Year --</option>
+            </select>
+          </div>
+        </div>
+      </div>
+  
+    </div><!-- row -->
+  </div>
 
   <div id='calendar'></div>
 

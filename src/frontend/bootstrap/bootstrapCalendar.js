@@ -1,25 +1,45 @@
 import _ from '../lodash';
-import { matchesToEvents } from '../transformers/matchesToEvents'
 import { goalContributrionBgColor } from '../transformers/goalContributrionBgColor'
 import { goalContributionTitle } from '../transformers/goalContributionTitle'
 import { matchDetailModalTitle } from '../transformers/match-modal/matchDetailModalTitle'
 import { matchDetailModalBody } from '../transformers/match-modal/matchDetailModalBody'
-import { createGaFilter } from './gaFilter'
+import { createMatchFilter, getMatchFilter } from './matchFilter'
 import { youtubeIcon, twitterIcon } from '../templates/icons';
 import { competitionLogo } from '../templates/competitionLogo';
 import { isFinal } from '../transformers/isFinal';
 
 const displayNoneClass = 'd-none';
 
-export function bootstrapCalendar() {
+
+function shouldDisplayMatch(match, filter) {
+  if(_.every(filter, (val) => !val)) {
+    return true;
+  }
+
+  const { goals, assists}  = match;
+  return _.some(filter, (filterValue, criteria) => {
+    if (!filterValue) {
+      return false;
+    }
+
+    const isGaCriteria = !Number.isNaN(Number(criteria))
+    if (isGaCriteria) {
+      return goals == filterValue || assists == filterValue;
+    }
+
+
+    return match[criteria] == filterValue;
+  })
+}
+
+export function bootstrapCalendar(events) {
     const $matchModal = new bootstrap.Modal(document.getElementById('matchDetail'))
 
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
   
-      var events = matchesToEvents();
       
-      const gaFilter = createGaFilter((filter) => {
+      const gaFilter = createMatchFilter((filter) => {
         calendar.render();
       })
       
@@ -91,27 +111,17 @@ export function bootstrapCalendar() {
           })
         },
         eventClassNames: function(arg) {
-          if(_.every(gaFilter, (val) => !val)) {
-            return;
+          const { event: { extendedProps: match }} = arg;
+          if (!shouldDisplayMatch(match, gaFilter)) {
+            return displayNoneClass
           }
-
-          const gaDisplay = Object.keys(_.pickBy(gaFilter, v => v)).map(v => Number(v))
-          if (!gaDisplay || gaDisplay.length === 0) {
-            return;
-          }
-          
-          const { event: { extendedProps: { goals, assists} }} = arg;
-          const match = gaDisplay.includes(goals) || gaDisplay.includes(assists)
-          if (match) {
-            return;
-          }
-          return displayNoneClass
         }
       });
 
       calendar.render();
     });
 }
+
 
 function addSocialIcon(el, match) {
   if (match.tweets || match.videos) {
