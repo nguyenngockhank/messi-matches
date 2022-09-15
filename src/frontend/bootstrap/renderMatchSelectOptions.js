@@ -10,7 +10,6 @@ export function renderMatchSelectOptions(selector, dataSource, filterAttr) {
 
         const gaFilter = getMatchFilter();
         gaFilter[filterAttr] = selectedValue;
-        console.log(">> >changedd ", gaFilter)
     })
   
 }

@@ -12,8 +12,11 @@ import pickBy from 'lodash/pickBy';
 import isNumber from 'lodash/isNumber';
 import uniq from 'lodash/uniq';
 import some from 'lodash/some';
+import isEmpty from 'lodash/isEmpty';
 
 export const _ = {
+    isEmpty,
+    every,
     some,
     uniq,
     first,
@@ -25,7 +28,6 @@ export const _ = {
     orderBy,
     repeat,
     reduce,
-    every,
     pickBy,
     isNumber,
 }

@@ -2,6 +2,8 @@
 // https://www.sporcle.com/games/easterbunny/football-club--by-abbreviations-/results
 // https://liaison.reuters.com/tools/sports-team-codes
 export const teamShortNameMap = {
+    "Maccabi Haifa": "MHA",
+    "Brest": "BREST",
     "Las Palmas": "LPM",
     "Numancia": "NUM", 
     "Granada": "GRA", 

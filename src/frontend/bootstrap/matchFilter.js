@@ -14,6 +14,8 @@ export function createMatchFilter(callback) {
             return true;
         }
     });
+
+    matchFilter.gaOptions = [];
     return matchFilter;
 }
 

@@ -3,6 +3,7 @@ import { goalContributrionBgColor } from '../transformers/goalContributrionBgCol
 import { goalContributionTitle } from '../transformers/goalContributionTitle'
 import { matchDetailModalTitle } from '../transformers/match-modal/matchDetailModalTitle'
 import { matchDetailModalBody } from '../transformers/match-modal/matchDetailModalBody'
+import { shouldDisplayMatch } from '../transformers/shouldDisplayMatch'
 import { createMatchFilter, getMatchFilter } from './matchFilter'
 import { youtubeIcon, twitterIcon } from '../templates/icons';
 import { competitionLogo } from '../templates/competitionLogo';
@@ -10,27 +11,6 @@ import { isFinal } from '../transformers/isFinal';
 
 const displayNoneClass = 'd-none';
 
-
-function shouldDisplayMatch(match, filter) {
-  if(_.every(filter, (val) => !val)) {
-    return true;
-  }
-
-  const { goals, assists}  = match;
-  return _.some(filter, (filterValue, criteria) => {
-    if (!filterValue) {
-      return false;
-    }
-
-    const isGaCriteria = !Number.isNaN(Number(criteria))
-    if (isGaCriteria) {
-      return goals == filterValue || assists == filterValue;
-    }
-
-
-    return match[criteria] == filterValue;
-  })
-}
 
 export function bootstrapCalendar(events) {
     const $matchModal = new bootstrap.Modal(document.getElementById('matchDetail'))
@@ -40,7 +20,7 @@ export function bootstrapCalendar(events) {
   
       
       const gaFilter = createMatchFilter((filter) => {
-        calendar.render();
+        calendar && calendar.render();
       })
       
       var calendar = new FullCalendar.Calendar(calendarEl, {
