@@ -2,7 +2,7 @@
 import { matchesToEvents } from './transformers/matchesToEvents'
 import { bootstrapCalendar } from './bootstrap/bootstrapCalendar'
 import { renderColorGoalNote } from './bootstrap/renderColorGoalNote'
-import { renderMatchSelectOptions } from './bootstrap/renderMatchSelectOptions'
+import { renderMatchSelectOptions, bootstrapSelectListener } from './bootstrap/renderMatchSelectOptions'
 import _ from './lodash';
 
 var events = matchesToEvents();
@@ -15,4 +15,16 @@ renderColorGoalNote();
 renderMatchSelectOptions('#tournamentSelect', competitionList, 'competition')
 renderMatchSelectOptions('#opponentSelect', opponentList, 'opponent')
 renderMatchSelectOptions('#yearSelect', yearList, 'year')
+
+bootstrapSelectListener("#lineupSelect", (selectedValue, gaFilter) => {
+    const newVal = {
+        bench: false,
+        started: false,
+    }
+    if (selectedValue) {
+        newVal[selectedValue] = true;
+    }
+    Object.assign(gaFilter, newVal)
+})
+
 bootstrapCalendar(events);

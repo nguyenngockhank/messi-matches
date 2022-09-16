@@ -3,7 +3,8 @@ import _ from '../lodash'
 export function shouldDisplayMatch(match, filter) {
   
     return _.every(filter, (filterValue, criteria) => {
-      if (_.isEmpty(filterValue)) {
+      console.log(">>> criteria", criteria, filterValue)
+      if (_.isEmpty(filterValue) && filterValue !== true) {
         return true;
       }
       const { goals, assists}  = match;
@@ -11,6 +12,7 @@ export function shouldDisplayMatch(match, filter) {
         case "gaOptions":
           return filterValue.includes(goals) || filterValue.includes(assists);
         default: 
+         
           return match[criteria] == filterValue;
       }
     })

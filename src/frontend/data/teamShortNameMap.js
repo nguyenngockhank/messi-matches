@@ -14,24 +14,24 @@ export const teamShortNameMap = {
     "Real Zaragoza": "Real Zaragoza", // 404
     "St Etienne": "ASSE", // 404
     "Mallorca": "Mallorca",  // 404
-    "Leganes": "Leganes", // 404
+    "Leganes": "LEG",
     "Panathinaikos": "PAN",
-    "Huelva": "SCH", // 404
+    "Huelva": "SCH", 
     "BATE Borisov": "BTE",
     "Huesca": "HUE",
-    "Atlante F.C.": "Atlante F.C.", // 404
+    "Atlante F.C.": "ALT", // 404
     "Benidorm": "Benidorm", // 404
     "Glasgow Rangers": "CEU", // 404
     "Racing Santander": "RAC", // 404
-    "Rubin Kazan": "Rubin Kazan", // 404
+    "Rubin Kazan": "RUB", 
     "APOEL": "APOEL", // 404 - Greeks
-    "Albacete Balompie": "Albacete Balompie", // 404
+    "Albacete Balompie": "ALBACETE", 
     "Xerez": "Xerez", // 404
     "Hercules": "Hercules", // 404
     "AD Ceuta": "AD Ceuta", // 404
-    "Cultural Leonesa": "Cultural Leonesa",  // 404
-    "Gimnastic": "Gimnastic",  // 404
-    "Real Murcia": "Real Murcia", // 404
+    "Cultural Leonesa": "LEO", 
+    "Gimnastic": "TAR", 
+    "Real Murcia": "MUR",
     "UDA Gramenet": "UDA Gramenet",// 404
     // 
     "Borussia Monchengladbach": "BMG", 
