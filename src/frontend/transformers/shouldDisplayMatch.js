@@ -3,7 +3,6 @@ import _ from '../lodash'
 export function shouldDisplayMatch(match, filter) {
   
     return _.every(filter, (filterValue, criteria) => {
-      console.log(">>> criteria", criteria, filterValue)
       if (_.isEmpty(filterValue) && filterValue !== true) {
         return true;
       }
