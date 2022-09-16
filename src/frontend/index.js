@@ -13,7 +13,6 @@ const opponentList = _.uniq(_.map(events, (item) => item.extendedProps.opponent)
 const teamList = _.uniq(_.map(events, (item) => item.extendedProps.team)).sort()
 
 
-console.log(events)
 renderColorGoalNote();
 renderMatchSelectOptions('#tournamentSelect', competitionList, 'competition')
 renderMatchSelectOptions('#opponentSelect', opponentList, 'opponent')
