@@ -12,9 +12,11 @@ import pickBy from 'lodash/pickBy';
 import isNumber from 'lodash/isNumber';
 import uniq from 'lodash/uniq';
 import some from 'lodash/some';
+import mapValues from 'lodash/mapValues';
 import isEmpty from 'lodash/isEmpty';
 
 export const _ = {
+    mapValues,
     isEmpty,
     every,
     some,
