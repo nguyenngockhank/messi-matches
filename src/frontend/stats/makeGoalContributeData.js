@@ -29,8 +29,8 @@ function createStatItem () {
     })
 }
 
-function makeGoalContributeData(matches, keyFromMatchFn) {
-    const summary = matches.reduce((result, match) => {
+function makeSummary(matches, keyFromMatchFn) {
+    return matches.reduce((result, match) => {
         const key = keyFromMatchFn(match);
 
         if (!key) {
@@ -48,6 +48,10 @@ function makeGoalContributeData(matches, keyFromMatchFn) {
 
         return result;
     }, {})
+}
+
+function makeGoalContributeData(matches, keyFromMatchFn) {
+    const summary = makeSummary(matches, keyFromMatchFn)
 
     const sortedKeys = Object.keys(summary).sort();
 
@@ -59,21 +63,6 @@ function makeGoalContributeData(matches, keyFromMatchFn) {
                 data: sortedKeys.map(key => summary[key][attr]),
             }
         })
-        
-        // [
-        //     {
-        //         ...configs.goals,
-        //         data: sortedKeys.map(key => summary[key].goals),
-        //     },
-        //     {
-        //         ...configs.assists,
-        //         data: sortedKeys.map(key => summary[key].assists),
-        //     },
-        //     {
-        //         ...configs.successfulDribbles,
-        //         data: sortedKeys.map(key => summary[key].successfulDribbles),
-        //     }
-        // ]
     }
 }
 
@@ -100,4 +89,41 @@ export function makeGoalContributeSeasonClubData(matches) {
     return makeGoalContributeData(matches, (match) => {
         return !isIntl(match) && match.season;
     })
+}
+
+const teamColorMap = {
+    Argentina: '#72a5d5',
+    Barcelona: 'red',
+    'Paris Saint-Germain': '#15437f',
+    'All Time': 'black',
+}
+
+export function makeAllTimeGoalsData(matches) {
+    const allTime = makeSummary(matches, () => 'All Time')
+    const perTeamMap = makeSummary(matches, (match) => match.team)
+    const allStats = Object.assign(allTime, perTeamMap)
+
+    const teamNames = Object.keys(allStats).sort();
+
+ 
+    return {
+        labels: teamNames,
+        data: teamNames.map(team => allStats[team].goals),
+        borderColor: teamNames.map(team => teamColorMap[team]),
+        backgroundColor: teamNames.map(team => teamColorMap[team]),
+    }
+}
+
+export function makeAllTimeAssistsData(matches) {
+    const allTime = makeSummary(matches, () => 'All Time')
+    const perTeamMap = makeSummary(matches, (match) => match.team)
+    const allStats = Object.assign(allTime, perTeamMap)
+    const teamNames = Object.keys(allStats).sort();
+
+    return {
+        labels: teamNames,
+        data: teamNames.map(team => allStats[team].assists),
+        borderColor: teamNames.map(team => teamColorMap[team]),
+        backgroundColor: teamNames.map(team => teamColorMap[team]),
+    }
 }
