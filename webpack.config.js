@@ -4,6 +4,7 @@ module.exports =  {
   entry: {
     main: './src/frontend/index.js',
     stats: './src/frontend/stats.js',
+    list: './src/frontend/list.js',
   },
   mode: process.env.NODE_ENV || 'development',
   output: {

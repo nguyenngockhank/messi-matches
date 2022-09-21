@@ -14,8 +14,12 @@ import uniq from 'lodash/uniq';
 import some from 'lodash/some';
 import mapValues from 'lodash/mapValues';
 import isEmpty from 'lodash/isEmpty';
+import debounce from 'lodash/debounce';
+import sortBy from 'lodash/sortBy';
 
 export const _ = {
+    sortBy,
+    debounce,
     mapValues,
     isEmpty,
     every,
