@@ -35,7 +35,7 @@ export const teamShortNameMap = {
     "UDA Gramenet": "UDA Gramenet",// 404
     // 
     "Borussia Monchengladbach": "BMG", 
-    "Tenerife": "TFN", // 404
+    "Tenerife": "TEN", 
     "Guatemala": "GTM", 
     "Bordeaux": "BOR",
     'Arsenal': 'ARS',

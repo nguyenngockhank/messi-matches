@@ -69,6 +69,12 @@ const match2015 = {
   ],
 }
 
+const match2014 = {
+  '2014-03-23': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">G⚽️AL OF THE DAY<br>🥇 <a href="https://twitter.com/hashtag/OnThisDay?src=hash&amp;ref_src=twsrc%5Etfw">#OnThisDay</a> in 2014, Messi became <a href="https://twitter.com/hashtag/ElClasico?src=hash&amp;ref_src=twsrc%5Etfw">#ElClasico</a>&#39;s all-time top goalscorer<br>🏡 <a href="https://twitter.com/hashtag/MadeInLaMasia?src=hash&amp;ref_src=twsrc%5Etfw">#MadeInLaMasia</a> <a href="https://t.co/64rXtj66Be">pic.twitter.com/64rXtj66Be</a></p>&mdash; FC Barcelona (@FCBarcelona) <a href="https://twitter.com/FCBarcelona/status/1506541521939673088?ref_src=twsrc%5Etfw">March 23, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
+  ]
+}
+
 const match2012 = {
   '2012-05-05': [
     `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Lionel Messi vs Espanyol 2012<br><br>Last match under Pep Guardiola at Camp Nou<br><br>•Enemy ~ Imagine Dragons•<a href="https://t.co/JTNppUIZmv">pic.twitter.com/JTNppUIZmv</a></p>&mdash; Oblivion (@Lionel10Prime) <a href="https://twitter.com/Lionel10Prime/status/1570387125434191872?ref_src=twsrc%5Etfw">September 15, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
@@ -80,7 +86,8 @@ const match2012 = {
 
 const match2011 = {
   '2011-04-27': [
-    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">G⚽️AL OF THE DAY <br>🔜 <a href="https://twitter.com/hashtag/ElClasico?src=hash&amp;ref_src=twsrc%5Etfw">#ElClasico</a>! 🔵🔴<br>🐐 Leo <a href="https://twitter.com/hashtag/Messi?src=hash&amp;ref_src=twsrc%5Etfw">#Messi</a> <a href="https://t.co/ltzh3ggzju">pic.twitter.com/ltzh3ggzju</a></p>&mdash; FC Barcelona (@FCBarcelona) <a href="https://twitter.com/FCBarcelona/status/1380415427877208066?ref_src=twsrc%5Etfw">April 9, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">G⚽️AL OF THE DAY <br>🔜 <a href="https://twitter.com/hashtag/ElClasico?src=hash&amp;ref_src=twsrc%5Etfw">#ElClasico</a>! 🔵🔴<br>🐐 Leo <a href="https://twitter.com/hashtag/Messi?src=hash&amp;ref_src=twsrc%5Etfw">#Messi</a> <a href="https://t.co/ltzh3ggzju">pic.twitter.com/ltzh3ggzju</a></p>&mdash; FC Barcelona (@FCBarcelona) <a href="https://twitter.com/FCBarcelona/status/1380415427877208066?ref_src=twsrc%5Etfw">April 9, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">📆 <a href="https://twitter.com/hashtag/OnThisDay?src=hash&amp;ref_src=twsrc%5Etfw">#OnThisDay</a> in 2011<br><br>Lionel Messi scored one of the best Champions League goals of all time...<br><br>Against Real Madrid 😎<a href="https://t.co/ddo6iKnE4o">pic.twitter.com/ddo6iKnE4o</a></p>&mdash; GOAL (@goal) <a href="https://twitter.com/goal/status/1254816279757717505?ref_src=twsrc%5Etfw">April 27, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
   ]
 }
 
@@ -90,10 +97,16 @@ const match2010 = {
   ],
   '2010-04-06': [
     `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">🙌 Messi fired FOUR past Arsenal <a href="https://twitter.com/hashtag/OnThisDay?src=hash&amp;ref_src=twsrc%5Etfw">#OnThisDay</a> in 2010! <br><br>⚽️⚽️⚽️⚽️<a href="https://twitter.com/hashtag/UCL?src=hash&amp;ref_src=twsrc%5Etfw">#UCL</a> <a href="https://t.co/7qm4ypTcqf">pic.twitter.com/7qm4ypTcqf</a></p>&mdash; UEFA Champions League (@ChampionsLeague) <a href="https://twitter.com/ChampionsLeague/status/1114407387979571201?ref_src=twsrc%5Etfw">April 6, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
+  ],
+  '2010-05-04': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">A rainy night at Camp Nou is no match for <a href="https://twitter.com/hashtag/Messi?src=hash&amp;ref_src=twsrc%5Etfw">#Messi</a>. <a href="https://twitter.com/hashtag/OnThisDay?src=hash&amp;ref_src=twsrc%5Etfw">#OnThisDay</a> 2010 <a href="https://t.co/g2wnIEXRYq">pic.twitter.com/g2wnIEXRYq</a></p>&mdash; FC Barcelona (@FCBarcelona) <a href="https://twitter.com/FCBarcelona/status/1257505546644660224?ref_src=twsrc%5Etfw">May 5, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
   ]
 }
 
 const match2009 = {
+  '2009-03-11': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">😍 Leo Messi masterclass <a href="https://twitter.com/hashtag/OnThisDay?src=hash&amp;ref_src=twsrc%5Etfw">#OnThisDay</a> in 2009 against Lyon...<a href="https://twitter.com/hashtag/UCL?src=hash&amp;ref_src=twsrc%5Etfw">#UCL</a> <a href="https://twitter.com/hashtag/MondayMotivation?src=hash&amp;ref_src=twsrc%5Etfw">#MondayMotivation</a> <a href="https://twitter.com/FCBarcelona?ref_src=twsrc%5Etfw">@FCBarcelona</a> <a href="https://t.co/TDE5y9KNG5">pic.twitter.com/TDE5y9KNG5</a></p>&mdash; UEFA Champions League (@ChampionsLeague) <a href="https://twitter.com/ChampionsLeague/status/1105068982321770496?ref_src=twsrc%5Etfw">March 11, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
+  ],
   '2009-03-22': [
     `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Lionel Messi goal vs Malaga 2009 is up there as one of his most underrated goal. <a href="https://twitter.com/hashtag/Barcelona?src=hash&amp;ref_src=twsrc%5Etfw">#Barcelona</a> <a href="https://twitter.com/hashtag/Messi%F0%93%83%B5?src=hash&amp;ref_src=twsrc%5Etfw">#Messi𓃵</a><br> <a href="https://t.co/ViJAMtZYVF">pic.twitter.com/ViJAMtZYVF</a></p>&mdash; What A Goal Messi (@WhatAGoalLeo) <a href="https://twitter.com/WhatAGoalLeo/status/1566210338755907588?ref_src=twsrc%5Etfw">September 3, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
   ],
@@ -112,9 +125,27 @@ const match2008 = {
   ]
 }
 
+const match2007 = {
+  '2008-04-18': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/OnThisDay?src=hash&amp;ref_src=twsrc%5Etfw">#OnThisDay</a> | April 18, 2007<br><br>In the first leg of the Copa del Rey semifinals, the 19-year-old future goat Leo <a href="https://twitter.com/hashtag/Messi?src=hash&amp;ref_src=twsrc%5Etfw">#Messi</a> takes the ball in Barça&#39;s half and blows past Getafe to score one of the most astounding goals ever witnessed. 😳🤯 <a href="https://t.co/GmG9mjF1pk">pic.twitter.com/GmG9mjF1pk</a></p>&mdash; FC Barcelona (@FCBarcelona) <a href="https://twitter.com/FCBarcelona/status/1251481056244531200?ref_src=twsrc%5Etfw">April 18, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
+  ],
+  '2007-03-10': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/OnThisDay?src=hash&amp;ref_src=twsrc%5Etfw">#OnThisDay</a> 2007 🎩 Fourteen years ago today, Leo <a href="https://twitter.com/hashtag/Messi?src=hash&amp;ref_src=twsrc%5Etfw">#Messi</a> scored his first hat trick — and it came in <a href="https://twitter.com/hashtag/ElCl%C3%A1sico?src=hash&amp;ref_src=twsrc%5Etfw">#ElClásico</a>! <a href="https://t.co/lvoKivy0T7">pic.twitter.com/lvoKivy0T7</a></p>&mdash; FC Barcelona (@FCBarcelona) <a href="https://twitter.com/FCBarcelona/status/1369703080304971776?ref_src=twsrc%5Etfw">March 10, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
+  ],
+  '2007-04-18': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">One-man show. 🐐<a href="https://twitter.com/hashtag/OnThisDay?src=hash&amp;ref_src=twsrc%5Etfw">#OnThisDay</a> 2007, <a href="https://twitter.com/hashtag/Messi?src=hash&amp;ref_src=twsrc%5Etfw">#Messi</a> solo magic. <a href="https://t.co/6hBx2mPlCG">pic.twitter.com/6hBx2mPlCG</a></p>&mdash; SOCCER.COM (@soccerdotcom) <a href="https://twitter.com/soccerdotcom/status/1251550316044189700?ref_src=twsrc%5Etfw">April 18, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
+  ]
+}
+
 const match2006 = {
   '2006-02-01': [
     `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">February 1st, 2006<br><br>15 years ago <a href="https://twitter.com/hashtag/OnThisDay?src=hash&amp;ref_src=twsrc%5Etfw">#OnThisDay</a>, an 18-year-old Leo Messi was already dazzling in the Copa del Rey 👑 <a href="https://t.co/Nc1vZraoaB">pic.twitter.com/Nc1vZraoaB</a></p>&mdash; FC Barcelona (@FCBarcelona) <a href="https://twitter.com/FCBarcelona/status/1356354417444970496?ref_src=twsrc%5Etfw">February 1, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
+  ]
+}
+
+const match2005 = {
+  '2005-11-02': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Go 🔙 in time to November 2, 2005 and witness an 18-year-old Leo <a href="https://twitter.com/hashtag/Messi?src=hash&amp;ref_src=twsrc%5Etfw">#Messi</a> score his first career <a href="https://twitter.com/ChampionsLeague?ref_src=twsrc%5Etfw">@ChampionsLeague</a> goal. <a href="https://twitter.com/hashtag/OnThisDay?src=hash&amp;ref_src=twsrc%5Etfw">#OnThisDay</a> <a href="https://t.co/yTBAgLE2vm">pic.twitter.com/yTBAgLE2vm</a></p>&mdash; FC Barcelona (@FCBarcelona) <a href="https://twitter.com/FCBarcelona/status/1323286136781942786?ref_src=twsrc%5Etfw">November 2, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
   ]
 }
 
@@ -126,12 +157,15 @@ const match2004 = {
 
 export const matchTweetsMap = Object.assign(
   match2004,
+  match2005,
   match2006,
+  match2007,
   match2008,
   match2009,
   match2010,
   match2011,
   match2012,
+  match2014,
   match2015,
   match2016,
   match2019, 
