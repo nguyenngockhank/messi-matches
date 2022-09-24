@@ -4,6 +4,7 @@ import Chart from 'chart.js'
 import _ from './lodash';
 import { makeGoalByBodyPartData } from "./stats/makeGoalByBodyPartData"
 import { makeGoalByPositionData } from './stats/makeGoalByPositionData';
+import { makeGoalContributionOfDatesInYear, makeGoalContributionOnMatchCounters } from './stats/makeGoalContributionOfDatesInYear';
 import { 
     makeGoalContributeYearData,
     makeGoalContributeYearIntlData,
@@ -96,4 +97,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     drawDoughnutChart("goalsBodyChart", makeGoalByBodyPartData(matches), 'Goals by body part')
     drawDoughnutChart("goalsPositionChart", makeGoalByPositionData(matches), 'Goals from position')
+    drawDoughnutChart("datesInYearChart", makeGoalContributionOfDatesInYear(matches), 'G/A In Dates')
+    drawDoughnutChart("gaMatchesChart", makeGoalContributionOnMatchCounters(matches), 'G/A Counters')
 });

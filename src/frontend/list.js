@@ -29,15 +29,18 @@ function matchHtml(match) {
     const title = matchTitle(match);
     const gaDetail = goalContributionDetail(match);
 
-    return `<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+    return `<div class="list-group-item list-group-item-action" aria-current="true">
     <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1 ${textClass}">${title}</h5>
         <small>${match.id}</small>
     </div>
     <p class="mb-1">${gaDetail}</p>
     <small>${match.competition}</small>
-  </a>`
+  </div>`
 }
+
+window.eventMatches = events;
+window._ = _
 
 const renderMatchList = _.debounce(function() {
     const filter = getMatchFilter();

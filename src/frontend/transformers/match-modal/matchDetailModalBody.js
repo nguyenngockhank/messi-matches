@@ -20,7 +20,7 @@ export function matchDetailModalBody(match) {
     
     lines.push(`<div>${ordinalNumber(appOrder)} APP</div>`)
     // append goal contribution
-    lines.push(goalContributionDetail(match));
+    lines.push(goalContributionDetail(match, { detail: true }));
 
     if (bigChancesCreated && _.isNumber(bigChancesCreated)) {
         lines.push(`<div>🎁 ${bigChancesCreated} big chances created</div>`);

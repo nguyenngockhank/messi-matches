@@ -16,8 +16,10 @@ import mapValues from 'lodash/mapValues';
 import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
 import sortBy from 'lodash/sortBy';
+import groupBy from 'lodash/groupBy';
 
 export const _ = {
+    groupBy,
     sortBy,
     debounce,
     mapValues,

@@ -10,24 +10,43 @@ function ordinalList(list) {
     return list.map(o => ordinalNumber(o)).join(', ')
 }
 
-export function goalContributionDetail(match) {
-    const { goals, assists, assistsOrder, assistsCompOrder, goalsOrder, goalsCompOrder, xg, competition } = match;
+function goalTotalDetail(match) {
+    const { goalsOrder } = match;
+    return `${ordinalList(goalsOrder)} / total`;
+}
 
+function goalCompetitionDetail(match) {
+    const { goalsCompOrder, competition } = match;
+    return `${ordinalList(goalsCompOrder)} / ${competition})`;
+}
+
+function assistCompetitionDetail(match) {
+    const { assistsCompOrder, competition } = match;
+    return `${ordinalList(assistsCompOrder)} / ${competition})`;
+}
+
+export function goalContributionDetail(match, options) {
+    const { goals, assists, assistsOrder,  xg,  } = match;
+
+    const showDetail = !!_.get(options, "detail");
 
     const lines = [];
     if (goals > 0) {
-        const xGPostfix = xg ? `/ xG:${xg}` : '';
-        const goalLine = `${_.repeat('⚽', goals)} (${ordinalList(goalsOrder)} / total & ${ordinalList(goalsCompOrder)} / ${competition}) ${xGPostfix}`;
+        const goalLine = `${_.repeat('⚽', goals)}`;
         lines.push(goalLine)
-
-        const typeDetail = buildTypeFn(['freeKicks', 'insideBox', 'outsideBox', 'pens'], match)
-        lines.push(typeDetail)
-        const bodyDetai = buildTypeFn(['left', 'right', 'head', 'other'], match)
-        lines.push(bodyDetai)
+        if (showDetail) {
+            const xGPostfix = xg ? `/ xG:${xg}` : '';
+            const goalDetail = `${goalTotalDetail(match)} & ${goalCompetitionDetail(match)} ${xGPostfix}`
+            lines.push(goalDetail);
+            const typeDetail = buildTypeFn(['freeKicks', 'insideBox', 'outsideBox', 'pens'], match)
+            lines.push(typeDetail)
+            const bodyDetai = buildTypeFn(['left', 'right', 'head', 'other'], match)
+            lines.push(bodyDetai)
+        }
     }
 
     if (assists > 0) {
-        const assistLine = `${_.repeat('️🅰️️', assists)} (${ordinalList(assistsOrder)} / total & ${ordinalList(assistsCompOrder)} / ${competition})`;
+        const assistLine = `${_.repeat('️🅰️️', assists)} (${ordinalList(assistsOrder)} / total)`;
         lines.push(assistLine)
     }
 
