@@ -25,6 +25,16 @@ const match2022 = {
   '2022-09-18': [
     `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">There are few things better than watching Neymar and Messi link up 🔥<br><br>(via <a href="https://twitter.com/PSG_inside?ref_src=twsrc%5Etfw">@PSG_inside</a>)<a href="https://t.co/6iuZCD05dp">pic.twitter.com/6iuZCD05dp</a></p>&mdash; B/R Football (@brfootball) <a href="https://twitter.com/brfootball/status/1572263064665489408?ref_src=twsrc%5Etfw">September 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
   ],
+  '2022-09-23': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Lionel Messi masterclass vs Honduras - Friendly 22/23<a href="https://t.co/OCmCqmjaPi">pic.twitter.com/OCmCqmjaPi</a></p>&mdash; Sam© (@Fcb_s_a_m) <a href="https://twitter.com/Fcb_s_a_m/status/1573642835538063360?ref_src=twsrc%5Etfw">September 24, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
+  ],
+  '2022-09-27': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Lionel Messi Vs Jamaica - Friendly 2022<a href="https://t.co/grEnU4V0Yo">pic.twitter.com/grEnU4V0Yo</a></p>&mdash; Λ (@TotalLM10i) <a href="https://twitter.com/TotalLM10i/status/1575128534888185857?ref_src=twsrc%5Etfw">September 28, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`,
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Lionel Messi doing Lionel Messi things...🐐<a href="https://t.co/tskcakCDXx">pic.twitter.com/tskcakCDXx</a></p>&mdash; SPORTbible (@sportbible) <a href="https://twitter.com/sportbible/status/1575003106466664448?ref_src=twsrc%5Etfw">September 28, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
+  ],
+  '2022-10-01': [
+    `<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Lionel Messi vs. OGC Nice. Enjoy. 🔥<a href="https://t.co/JNMoEhnwec">pic.twitter.com/JNMoEhnwec</a></p>&mdash; Roy Nemer (@RoyNemer) <a href="https://twitter.com/RoyNemer/status/1576457916487733248?ref_src=twsrc%5Etfw">October 2, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
+  ],
 }
 
 const match2021 = {
