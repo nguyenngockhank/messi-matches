@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-fetch": "npx nodemon scrape/messivscr/fetch.ts",
+    "dev-md": "npx nodemon scrape/make-md.ts",
     "fetch": "node dist/messivscr/fetch",
     "build-ts": "tsc",
     "build": "webpack --mode=production  && git add . && git commit -m \"chore: build\"",

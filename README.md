@@ -31,3 +31,6 @@ Open `frontend/index.html` with your browser
 
 JS Library
 - [fullcalendar](https://fullcalendar.io/docs/headerToolbar)
+
+Tools
+http://json2ts.com/
