@@ -88,7 +88,7 @@ export function matchToMdContent(match: EnrichedMatch) : string {
 
     // add script 
     if (hasScript) {
-        lines.push("\n" + matchScripts[id] + "\n");
+        lines.push("\n```\n" + matchScripts[id] + "\n```\n");
     }
 
     return lines.filter(i => i).join("\n")
