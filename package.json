@@ -8,7 +8,7 @@
     "dev-fetch": "npx nodemon scrape/messivscr/fetch.ts",
     "dev-md": "npx nodemon scrape/make-md.ts",
     "fetch": "node dist/messivscr/fetch",
-    "build-md": "node dist/make-md",
+    "build-ss": "node dist/make-ss",
     "build-ts": "tsc",
     "build": "webpack --mode=production  && git add . && git commit -m \"chore: build\"",
     "watch": "webpack --watch --mode=development"
@@ -16,11 +16,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/showdown": "^2.0.0",
     "axios": "^0.27.2",
     "chart.js": "^2.9.4",
     "chartjs-plugin-labels": "^1.1.0",
     "lodash": "^4.17.21",
-    "nedb-promises": "^6.1.0"
+    "nedb-promises": "^6.1.0",
+    "showdown": "^2.1.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.183",

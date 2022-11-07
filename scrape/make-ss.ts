@@ -1,4 +1,5 @@
 import fs from "fs"
+import showdown from "showdown"
 import { EnrichedMatch, Match, TeamEnum } from "./types";
 import { orderBy,  uniq, repeat, groupBy, map } from "lodash";
 import { matchToMdContent } from "./match-md-transfomers";
@@ -24,24 +25,33 @@ function enrichMatch(matches: Match[]) : EnrichedMatch[] {
     })
 }
 
-function writeMatches(destFile: string, matches: EnrichedMatch[])  {
+function getSeasonMdContent(season: string, matches: EnrichedMatch[]) : string {
+    const title = `# S${season}\n`;
     const contents = matches.map(m => matchToMdContent(m)) ;
-    fs.writeFileSync(destFile, contents.join("\n\n"))
+    return title + contents.join("\n\n")
 }
 
+const converter = new showdown.Converter();
+type SeasonHtmlOptions = string | { season: string; matches: EnrichedMatch[] };
+function getSeasonHtmlContent(options: SeasonHtmlOptions) : string {
+    const mdContent = typeof options === "string" 
+        ? options 
+        : getSeasonMdContent(options.season, options.matches);
+    return converter.makeHtml(mdContent);
+}
 
 
 const matchPath = `src/analytics/matches.json`;
 const allMatches =  fetchMatches(matchPath);
 
-
 const barcaMatches = enrichMatch(orderBy(allMatches.filter(m => m.team === TeamEnum.Barcelona), "id").reverse())
 const seasonMatchGroups = groupBy(barcaMatches, "season");
 
 map(seasonMatchGroups, (matches, season) => {
-    const name = `S${season}.md`
-    writeMatches(`docs/${name}`, matches);
+    const mdFile = `docs/S${season}.md`;
+    fs.writeFileSync(mdFile, getSeasonMdContent(season, matches))
+
+    const htmlFile = `frontend/s${season}.html`
+    fs.writeFileSync(htmlFile, getSeasonHtmlContent({ season, matches }))
 })
 
-// const matches2019 = barcaMatches.filter(m => m.season === '2018-2019')
-// 
