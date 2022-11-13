@@ -63,15 +63,20 @@ function playmakerStats(match: EnrichedMatch) : string {
     return lines.filter(i => i).join("; ")
 }
 
+export function matchTitle(match: EnrichedMatch) : string {
+    const { order, opponent, homeAway, scoreTeam, scoreOpponent, season } = match;
+    return `${matchResultIcon(match)} ${order}. vs ${opponent} (${homeAway}) (${season}) (${scoreTeam} - ${scoreOpponent})`
+}
 
 export function matchToMdContent(match: EnrichedMatch) : string {
-    const { id, dateDB, competition, order, opponent, homeAway, minsPlayed, scoreTeam, scoreOpponent, benched } = match;
+    const { id, dateDB, competition,  minsPlayed, benched } = match;
     const lines: string[] = [];
     
     const hasScript = !!matchScripts[id];
 
     // add title & subtitle
-    const title = `## ${hasScript ? '👀': ''} ${matchResultIcon(match)} ${order}. vs ${opponent} (${homeAway}) ${scoreTeam} - ${scoreOpponent}`
+    const prefixTitle = `## ${hasScript ? '👀': ''}`;
+    const title = `${prefixTitle} ${matchTitle(match)}`
     lines.push(title);
     lines.push(`${dateDB} - **${competition}** ${roundTitle(match)} *${id}*`)
 

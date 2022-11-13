@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-match": "npx nodemon scrape/match-video.ts",
     "dev-fetch": "npx nodemon scrape/messivscr/fetch.ts",
     "dev-md": "npx nodemon scrape/make-md.ts",
     "fetch": "node dist/messivscr/fetch",
@@ -16,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tidyjs/tidy": "^2.5.1",
     "@types/showdown": "^2.0.0",
     "axios": "^0.27.2",
     "chart.js": "^2.9.4",

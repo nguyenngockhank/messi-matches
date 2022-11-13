@@ -9,7 +9,9 @@ const m20080924 = `01:05 1st assist
 
 const m20080927 = `12:45 last minute goal ⚽`
 
-const m20081004 = `02:40 1st freekick goal`
+const m20081004 = `
+00:51 pen won
+02:40 1st freekick goal ⚽`
 
 const m20081101 = `01:55 banger ⚽`
 
@@ -21,7 +23,7 @@ const m20081129 = `04:47 first goal outside the box
 06:14 second goal outside the box 
 07:12 KING OF GOAL OUTSIDE THE BOX 👑👑👑`
 
-const m20081221 = `
+const m20090106 = `
 01:30 1st goal
 05:45 2nd goal 
 07:43 crossbar challenge
@@ -45,7 +47,7 @@ module.exports = {
     m20081112,
     m20081116,
     m20081129,
-    m20081221,
+    m20090106,
     m20090111,
     m20090301,
 }
