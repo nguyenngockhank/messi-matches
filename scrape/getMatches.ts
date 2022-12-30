@@ -25,10 +25,12 @@ function enrichMatch(matches: Match[]) : EnrichedMatch[] {
 
 
 const matchPath = `src/analytics/matches.json`;
-const allMatches =  fetchMatches(matchPath);
-const barcaMatches = enrichMatch(orderBy(allMatches.filter(m => m.team === TeamEnum.Barcelona), "id").reverse())
+const allRawMatches =  fetchMatches(matchPath);
+const barcaMatches = enrichMatch(orderBy(allRawMatches.filter(m => m.team === TeamEnum.Barcelona), "id").reverse())
 
-export { barcaMatches }
+const allMatches = enrichMatch(orderBy(allRawMatches, "id").reverse())
+
+export { barcaMatches, allMatches }
 
 
 

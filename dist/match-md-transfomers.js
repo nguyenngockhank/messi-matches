@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.matchToMdContent = exports.roundTitle = exports.matchResultIcon = void 0;
+exports.matchToMdContent = exports.matchTitle = exports.roundTitle = exports.matchResultIcon = void 0;
 const lodash_1 = require("lodash");
 const match_helpers_1 = require("./match-helpers");
 const match_script_js_1 = require("../scripts/match-script.js");
@@ -53,12 +53,18 @@ function playmakerStats(match) {
     });
     return lines.filter(i => i).join("; ");
 }
+function matchTitle(match) {
+    const { order, opponent, homeAway, scoreTeam, scoreOpponent, season } = match;
+    return `${matchResultIcon(match)} ${order}. vs ${opponent} (${homeAway}) (${season}) (${scoreTeam} - ${scoreOpponent})`;
+}
+exports.matchTitle = matchTitle;
 function matchToMdContent(match) {
-    const { id, dateDB, competition, order, opponent, homeAway, minsPlayed, scoreTeam, scoreOpponent, benched } = match;
+    const { id, dateDB, competition, minsPlayed, benched } = match;
     const lines = [];
     const hasScript = !!match_script_js_1.matchScripts[id];
     // add title & subtitle
-    const title = `## ${hasScript ? '👀' : ''} ${matchResultIcon(match)} ${order}. vs ${opponent} (${homeAway}) ${scoreTeam} - ${scoreOpponent}`;
+    const prefixTitle = `## ${hasScript ? '👀' : ''}`;
+    const title = `${prefixTitle} ${matchTitle(match)}`;
     lines.push(title);
     lines.push(`${dateDB} - **${competition}** ${roundTitle(match)} *${id}*`);
     // build play status

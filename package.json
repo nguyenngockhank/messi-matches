@@ -9,6 +9,7 @@
     "dev-fetch": "npx nodemon scrape/messivscr/fetch.ts",
     "dev-md": "npx nodemon scrape/make-md.ts",
     "fetch": "node dist/messivscr/fetch",
+    "build-cal": "node dist/buildCalendar",
     "build-ss": "node dist/make-ss",
     "build-ts": "tsc",
     "build": "webpack --mode=production  && git add . && git commit -m \"chore: build\"",
