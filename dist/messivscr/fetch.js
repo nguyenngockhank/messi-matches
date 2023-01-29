@@ -21,10 +21,11 @@ function transformForFrontEnd(apiResult) {
             // trip date value
             const transformedMatch = lodash_1.default.omitBy(lodash_1.default.omit(match, "date"), v => v === null);
             // to Number
-            return lodash_1.default.mapValues(transformedMatch, (attr) => {
+            const transformedMatch2 = lodash_1.default.mapValues(transformedMatch, (attr) => {
                 const numVal = lodash_1.default.toNumber(attr);
                 return lodash_1.default.isNaN(numVal) ? attr : numVal;
             });
+            return lodash_1.default.mapKeys(transformedMatch2, function (v, k) { return k.toLowerCase(); });
         });
     });
 }

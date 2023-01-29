@@ -1,7 +1,6 @@
 import axios from "axios"
 import _ from "lodash"
 import fs from "fs"
-import path from "path"
 
 
 async function fetchEvents() {
@@ -24,10 +23,12 @@ function transformForFrontEnd(apiResult) {
             // trip date value
             const transformedMatch = _.omitBy(_.omit(match, "date"), v => v ===null)
             // to Number
-            return _.mapValues(transformedMatch, (attr) => { 
+            const transformedMatch2 = _.mapValues(transformedMatch, (attr) => { 
                 const numVal = _.toNumber(attr); 
                 return _.isNaN(numVal) ? attr : numVal 
             })
+
+            return _.mapKeys(transformedMatch2, function (v, k) { return k.toLowerCase(); });
         }) 
     })
 }
