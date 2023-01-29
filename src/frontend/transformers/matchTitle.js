@@ -22,15 +22,15 @@ function buildYearPrefix(match, options) {
 }
 
 function homeTitle(match, options) {
-    const { team, opponent, scoreTeam, scoreOpponent } = match;
+    const { team, opponent, scoreteam, scoreopponent } = match;
     const prefix = buildYearPrefix(match, options);
-    return `${prefix}${teamName(team, options)} ${scoreTeam} - ${scoreOpponent} ${teamName(opponent, options)}`
+    return `${prefix}${teamName(team, options)} ${scoreteam} - ${scoreopponent} ${teamName(opponent, options)}`
 }
 
 function awayTitle(match, options) {
-    const { team, opponent, scoreTeam, scoreOpponent } = match;
+    const { team, opponent, scoreteam, scoreopponent } = match;
     const prefix = buildYearPrefix(match, options);
-    return `${prefix}${teamName(opponent, options)} ${scoreOpponent} - ${scoreTeam} ${teamName(team, options)}`
+    return `${prefix}${teamName(opponent, options)} ${scoreopponent} - ${scoreteam} ${teamName(team, options)}`
 }
 
 export function matchTitle(match, options) {

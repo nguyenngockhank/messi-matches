@@ -54,7 +54,7 @@ export function bootstrapCalendar(events) {
         displayEventTime: false,
         eventDisplay: 'list-item',
         events:  events,
-        initialDate: _.first(events).start,
+        // initialDate: _.first(events).start,
         eventOrder: "-start",
         visibleRange: function(){
           const startMatch = _.last(events);

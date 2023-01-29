@@ -1,13 +1,13 @@
 import { isHome } from "./isHome";
 
 export function isWin(match) {
-    const { scoreTeam, scoreOpponent, penScore } = match;
-    if (scoreTeam > scoreOpponent) {
+    const { scoreteam, scoreopponent, penscore } = match;
+    if (scoreteam > scoreopponent) {
         return true;
     }
 
-    if (penScore) {
-        const [first, secord] = penScore.split('-');
+    if (penscore) {
+        const [first, secord] = penscore.split('-');
         return isHome(match) ? first > secord : secord > first;
     }
 

@@ -5,6 +5,8 @@ import { renderColorGoalNote } from './bootstrap/renderColorGoalNote'
 import { renderMatchSelectOptions, bootstrapSelectListener } from './bootstrap/renderMatchSelectOptions'
 import _ from './lodash';
 
+window._ = _;
+
 var events = matchesToEvents();
 
 const competitionList = _.uniq(_.map(events, (item) => item.extendedProps.competition)).sort()

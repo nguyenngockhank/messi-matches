@@ -1,4 +1,4 @@
 export function isDraw(match) {
-    const { scoreTeam, scoreOpponent, penScore } = match;
-    return scoreTeam === scoreOpponent && !penScore;
+    const { scoreteam, scoreopponent, penscore } = match;
+    return scoreteam === scoreopponent && !penscore;
 }
