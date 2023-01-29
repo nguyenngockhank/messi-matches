@@ -17,8 +17,12 @@ import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
 import sortBy from 'lodash/sortBy';
 import groupBy from 'lodash/groupBy';
+import toNumber from 'lodash/toNumber';
+import isNaN from 'lodash/isNaN';
 
 export const _ = {
+    isNaN,
+    toNumber,
     groupBy,
     sortBy,
     debounce,

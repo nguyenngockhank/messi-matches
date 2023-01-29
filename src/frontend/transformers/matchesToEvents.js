@@ -36,14 +36,19 @@ function enrichEvent(event, aggregate) {
 }
 
 export function matchesToEvents() {
-    const events = _.flatten(_.map(dateMatchesMap, (matches, date) => {
-        return _.map(matches, match => {
-            enrichMatch(match, date);
-            return matchToEvent(match)
+    const events =  _.map(allmatches, match => {
+        const date = match.date;
+        // value to number
+        const transformedMatch = _.mapValues(match, (attrVal) => { 
+            const numVal = _.toNumber(attrVal); 
+            return _.isNaN(numVal) ? attrVal : numVal 
         })
-    }))
 
+        enrichMatch(transformedMatch, date);
+        return matchToEvent(transformedMatch)
+    });
 
+    // enrich order of goals / assists / ...
     _.reduce(_.orderBy(events, 'id'), (aggregate, event) => {
         const { extendedProps: { goals, assists, competition }} = event;
         

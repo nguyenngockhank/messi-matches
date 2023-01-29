@@ -16,17 +16,13 @@ function transformForFrontEnd(apiResult) {
     console.log("> Found match", matches.length);
     const dateMatchesMap = lodash_1.default.groupBy(matches, "date");
     console.log("> Found match dates", Object.keys(dateMatchesMap).length);
-    return lodash_1.default.mapValues(dateMatchesMap, (dateMatches) => {
-        return lodash_1.default.map(dateMatches, (match) => {
-            // trip date value
-            const transformedMatch = lodash_1.default.omitBy(lodash_1.default.omit(match, "date"), v => v === null);
-            // to Number
-            const transformedMatch2 = lodash_1.default.mapValues(transformedMatch, (attr) => {
-                const numVal = lodash_1.default.toNumber(attr);
-                return lodash_1.default.isNaN(numVal) ? attr : numVal;
-            });
-            return lodash_1.default.mapKeys(transformedMatch2, function (v, k) { return k.toLowerCase(); });
+    return lodash_1.default.map(matches, (match) => {
+        // to Number
+        const transformedMatch2 = lodash_1.default.mapValues(match, (attr) => {
+            const numVal = lodash_1.default.toNumber(attr);
+            return lodash_1.default.isNaN(numVal) ? attr : numVal;
         });
+        return lodash_1.default.mapKeys(transformedMatch2, function (v, k) { return k.toLowerCase(); });
     });
 }
 function transformForAnalytics(apiResult) {
@@ -41,7 +37,7 @@ function transformForAnalytics(apiResult) {
 fetchEvents().then((apiResult) => {
     const feData = transformForFrontEnd(apiResult);
     const feStoredPath = 'frontend/js/matches.js';
-    fs_1.default.writeFileSync(feStoredPath, `var dateMatchesMap = ${JSON.stringify(feData)}`);
+    fs_1.default.writeFileSync(feStoredPath, `var allmatches = ${JSON.stringify(feData)}`);
     const matchesJson = transformForAnalytics(apiResult);
     const analyticStoredPath = 'src/analytics/matches.json';
     fs_1.default.writeFileSync(analyticStoredPath, JSON.stringify(matchesJson));

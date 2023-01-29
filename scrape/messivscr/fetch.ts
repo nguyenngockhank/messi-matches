@@ -15,22 +15,15 @@ function transformForFrontEnd(apiResult) {
     const dateMatchesMap = _.groupBy(matches, "date");
 
     console.log("> Found match dates" , Object.keys(dateMatchesMap).length)
+    return _.map(matches, (match) => {
+        // to Number
+        const transformedMatch2 = _.mapValues(match, (attr) => { 
+            const numVal = _.toNumber(attr); 
+            return _.isNaN(numVal) ? attr : numVal 
+        })
 
-    return _.mapValues(dateMatchesMap, (dateMatches) => { 
-
-
-        return _.map(dateMatches, (match) => {
-            // trip date value
-            const transformedMatch = _.omitBy(_.omit(match, "date"), v => v ===null)
-            // to Number
-            const transformedMatch2 = _.mapValues(transformedMatch, (attr) => { 
-                const numVal = _.toNumber(attr); 
-                return _.isNaN(numVal) ? attr : numVal 
-            })
-
-            return _.mapKeys(transformedMatch2, function (v, k) { return k.toLowerCase(); });
-        }) 
-    })
+        return _.mapKeys(transformedMatch2, function (v, k) { return k.toLowerCase(); });
+    }) 
 }
 
 function transformForAnalytics(apiResult) {
@@ -47,7 +40,7 @@ function transformForAnalytics(apiResult) {
 fetchEvents().then((apiResult) => {
     const feData = transformForFrontEnd(apiResult);
     const feStoredPath = 'frontend/js/matches.js';
-    fs.writeFileSync(feStoredPath, `var dateMatchesMap = ${JSON.stringify(feData)}`)
+    fs.writeFileSync(feStoredPath, `var allmatches = ${JSON.stringify(feData)}`)
 
     const matchesJson = transformForAnalytics(apiResult);
     const analyticStoredPath = 'src/analytics/matches.json';
