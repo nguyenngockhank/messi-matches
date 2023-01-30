@@ -12,7 +12,7 @@
     "build-cal": "node dist/buildCalendar",
     "build-ss": "node dist/make-ss",
     "build-ts": "tsc",
-    "build": "webpack --mode=production  && git add . && git commit -m \"chore: build\"",
+    "build": "webpack --mode=production  && git add .",
     "watch": "webpack --watch --mode=development"
   },
   "author": "",

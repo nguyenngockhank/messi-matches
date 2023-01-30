@@ -32,7 +32,7 @@ function matchHtml(match) {
     return `<div class="list-group-item list-group-item-action" aria-current="true">
     <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1 ${textClass}">${title}</h5>
-        <small>${match.id}</small>
+        <small>${match.slug}</small>
     </div>
     <p class="mb-1">${gaDetail}</p>
     <small>${match.competition}</small>

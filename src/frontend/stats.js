@@ -16,7 +16,7 @@ import {
 
 function enrichMatch(match, date) {
     const [day, month] = date.split('-')
-    match.id = `${match.year}-${month}-${day}`;
+    match.slug = `${match.year}-${month}-${day}`;
     match.totalGA = match.assists + match.goals;
     match.started = match.started > 0;
     match.bench = !match.started;

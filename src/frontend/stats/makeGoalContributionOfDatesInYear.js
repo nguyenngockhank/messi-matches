@@ -3,7 +3,7 @@ import _ from "../lodash";
 
 function datesOfMatches(matches) {
     const dateMap = matches.map(match => {
-        const [, m, d] = match.id.split('-'); 
+        const [, m, d] = match.slug.split('-'); 
         return `${m}-${d}`;
     }) 
     return _.uniq(dateMap);

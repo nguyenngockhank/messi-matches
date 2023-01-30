@@ -21,13 +21,13 @@ function matchRepeatOptions(date) {
 
 // https://fullcalendar.io/docs/event-object
 export function matchToEvent(match) { 
-    const { id, competition, } = match;
+    const { slug, competition, } = match;
 
-    const date = new Date(id)
+    const date = new Date(slug)
     const repeatOptions = matchRepeatOptions(date);
 
     return {
-        id,
+        id: slug,
         title: matchTitle(match, { prefixYear: true, shortName: true }),
         constraint: competition,
         start: new Date(date).toISOString(),

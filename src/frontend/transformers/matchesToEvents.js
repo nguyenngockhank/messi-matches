@@ -4,14 +4,17 @@ import { matchTweetsMap } from '../data/matchTweetsMap'
 import { matchVideosMap } from '../data/matchVideosMap'
 
 
+window.matchVideosMap = matchVideosMap;
+window.matchTweetsMap = matchTweetsMap;
+
 function enrichMatch(match, date) {
     const [day, month] = date.split('-')
-    match.id = `${match.year}-${month}-${day}`;
+    match.slug = `${match.year}-${month}-${day}`;
     match.totalGA = match.assists + match.goals;
     match.started = match.started > 0;
     match.bench = !match.started;
-    match.videos = matchVideosMap[match.id];
-    match.tweets = matchTweetsMap[match.id];
+    match.videos = matchVideosMap[match.slug];
+    match.tweets = matchTweetsMap[match.slug];
 }
 
 function enrichEvent(event, aggregate) {
@@ -37,15 +40,14 @@ function enrichEvent(event, aggregate) {
 
 export function matchesToEvents() {
     const events =  _.map(allmatches, match => {
-        const date = match.date;
         // value to number
         const transformedMatch = _.mapValues(match, (attrVal) => { 
             const numVal = _.toNumber(attrVal); 
             return _.isNaN(numVal) ? attrVal : numVal 
         })
 
-        enrichMatch(transformedMatch, date);
-        return matchToEvent(transformedMatch)
+        enrichMatch(transformedMatch, match.date);
+        return matchToEvent(transformedMatch, match.date)
     });
 
     // enrich order of goals / assists / ...

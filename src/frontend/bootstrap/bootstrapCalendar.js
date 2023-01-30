@@ -79,8 +79,8 @@ export function bootstrapCalendar(events) {
           // competitionLogoMap
           $(el).click(() => {
             const currentShownMatchId  = $('#matchDetail').data('match-id');
-            if (currentShownMatchId !== match.id) {
-              $('#matchDetail').data('match-id', match.id);
+            if (currentShownMatchId !== match.slug) {
+              $('#matchDetail').data('match-id', match.slug);
               // change title
               $('#matchDetail .modal-title').html( matchDetailModalTitle(match))
               // change body 

@@ -1,5 +1,4 @@
 export const matchVideosMap = {
-    '2018-09-02': [`Ye3eagqfilY`],
     '2021-09-02': [`Mpt0YRaFc1c`],
     '2007-09-11': [`TNTsx-KMrMw`],
 }
@@ -75,6 +74,7 @@ const match2004 = {
 
 
 export const fullMatchVideosMap = Object.assign(
+    matchVideosMap,
     match2004,
     match2008,
     match2009,
