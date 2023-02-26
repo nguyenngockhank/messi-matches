@@ -1,25 +1,8 @@
 import _ from 'lodash';
 import * as cheerio from 'cheerio';
-import { storeMatches, fetchMatchDetail, EnrichedMatchDetail, getStoredMatchMap } from "./common";
-
-function removeDoubleSpace(text: string) {
-    return text.replace(/\s+/g, ' ').trim()
-}
-
-
-function extractMatchExtraFields(htmlContent: string)  {
-    const $ = cheerio.load(htmlContent);
-    const location = $('.misc span:first-child').first().text().trim()
-    const visitors = $('.misc .visitors').text().trim()
-    const referee = $('.misc .referee').text().trim()
-
-    return {
-        location: removeDoubleSpace(location),
-        visitors: parseInt(visitors) || undefined,
-        referee: removeDoubleSpace(referee)
-    }
-}
-
+import { storeMatches, fetchMatchDetail, getStoredMatchMap, } from "./common";
+import { EnrichedMatchDetail } from "./types";
+import { extractMatchExtraFields } from './extract-match-detail-helpers';
 
 
 async function execute() {
@@ -34,9 +17,11 @@ async function execute() {
             console.log("> skip fetch", slug)
             continue;
         }
-
-        const html = await fetchMatchDetail(match.href);
-        const extraFields = extractMatchExtraFields(html);
+        
+        const htmlContent = await fetchMatchDetail(match.href);
+        const $ = cheerio.load(htmlContent);
+        
+        const extraFields = extractMatchExtraFields($);
         console.log("> extraFields", slug, extraFields)
         Object.assign(match, extraFields);
     }

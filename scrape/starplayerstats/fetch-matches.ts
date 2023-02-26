@@ -1,47 +1,55 @@
 import * as cheerio from 'cheerio';
 import _ from 'lodash';
-import { fetchAllMatches, getStoredMatchMap, MatchDetail, storeMatches } from "./common";
+import { extractRowData, fetchAllMatches, getStoredMatchMap, storeMatches, traverseRows } from "./common";
+import { MatchDetail } from "./types";
+
+
 
 function extractMatchesOnPage(content: string) : MatchDetail[] {
     const $ = cheerio.load(content);
     const $table = $('.nextlevel');
 
     const matchList : MatchDetail[] = [];
-    
-    $table.find('tbody tr').each((index, el) => {
-        const matchHref = el.attributes.find(attr => attr.name === 'data-href');
+
+    traverseRows($table, ($row) => {
+        const matchHref  = $row('tr').attr("data-href")
         if (!matchHref) {
             return;
         }
-
-        const $row = cheerio.load(el);
-        const textAppIndex = $row('td:first-child').text().trim();
-        const textDate = $row('td:nth-child(2)').text().trim();
-        const homeTeam = $row('td:nth-child(4)').text().trim();
-        const awayTeam = $row('td:nth-child(6)').text().trim();
-        const goals = $row('td:nth-child(9)').text().trim();
-        const assists = $row('td:nth-child(10)').text().trim();
+        const [
+            appIndex,
+            textDate,
+            competition,
+            homeTeam,
+            result,
+            awayTeam,
+            starter,
+            minutesPlayed,
+            goals,
+            assists,
+            cards,
+        ] = extractRowData($row, 10);
 
         const matchslug = textDate.split("-").reverse().join("-");
 
         matchList.push({
-            href: matchHref.value,
-            appIndex: parseInt(textAppIndex),
+            href: matchHref,
+            appIndex: parseInt(appIndex),
             matchslug,
             date: matchslug,
             homeTeam,
             awayTeam,
             goals: parseInt(goals),
             assists: parseInt(assists),
-        })
-    })
+        });
+    });
 
     return matchList;
 }
 
 fetchAllMatches().then(content => {
     const storedMatchMap = getStoredMatchMap();
-
+    
     const pageMatches : MatchDetail[] = extractMatchesOnPage(content);
 
     // enrich old s
@@ -54,6 +62,7 @@ fetchAllMatches().then(content => {
     });
 
     if (hasChanged) {
+        console.log("storing matches changed")
         storeMatches(storedMatchMap)
     }
 });

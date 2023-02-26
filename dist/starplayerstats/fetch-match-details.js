@@ -50,6 +50,7 @@ async function execute() {
         }
         const html = await (0, common_1.fetchMatchDetail)(match.href);
         const extraFields = extractMatchExtraFields(html);
+        console.log("> extraFields", slug, extraFields);
         Object.assign(match, extraFields);
     }
     (0, common_1.storeMatches)(storedMatchMap);

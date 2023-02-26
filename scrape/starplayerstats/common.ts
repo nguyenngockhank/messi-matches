@@ -1,8 +1,10 @@
 import axios from "axios";
 import _ from 'lodash';
+import * as cheerio from 'cheerio';
 import { setupCache } from 'axios-cache-interceptor';
 import { axiosLocalStorage } from "../axiosLocalStorage";
 import { readJsonFromFile, writeJson } from "../fileHelpers";
+import { MatchDetail } from "./types";
 
 setupCache(axios, {
     storage: axiosLocalStorage,
@@ -34,24 +36,17 @@ export async function fetchMatchDetail(matchHref: string) {
     return response.data
 }
 
-export type MatchDetail = {
-    href: string;
-    appIndex: number;
-    matchslug: string;
-    date: string;
-    homeTeam: string;
-    awayTeam: string;
-    goals: number;
-    assists: number;
-}
-
-export type EnrichedMatchDetail = MatchDetail & {
-    location?: string;
-    visitors?: number;
-    referee?: string;
+export async function fetchAllGoals() {
+    const url = `https://messi.starplayerstats.com/en/goals/0/0/all/0/0/0/t/all/all/0/0/1`;
+    const response = await axios.get(url, { 
+        responseType: 'text',
+    });
+    return response.data
 }
 
 export const starplayerstatsDist = "dist/data/starplayerstats-messi.json";
+export const goalsDist = "dist/data/goals-messi.json";
+
 
 export function getStoredMatchMap() : Record<string, MatchDetail> {
     const result = readJsonFromFile(starplayerstatsDist, []);
@@ -63,4 +58,30 @@ export function getStoredMatchMap() : Record<string, MatchDetail> {
 
 export function storeMatches(matches: MatchDetail[] | Record<string, MatchDetail>) {
     return writeJson(matches, starplayerstatsDist)
+}
+
+export function storeGoals(goals: any) {
+    return writeJson(goals, goalsDist)
+}
+
+
+export type ProcessRowCallback = ($row: cheerio.CheerioAPI) => void;
+export function traverseRows($table: cheerio.Cheerio<cheerio.Element>, callback: ProcessRowCallback) {
+    $table.find('tbody tr').each((index, el) => {
+        const $row = cheerio.load(el);
+        callback($row);
+    });
+}
+
+export function extractRowData($row: cheerio.CheerioAPI, numColumns: number) : string[] {
+    const result: string[] = [];
+    for(let i = 1; i <= numColumns; ++i) {
+        const text = $row(`td:nth-child(${i})`).text().trim();
+        result.push(text);
+    }
+    return result;
+}
+
+export function removeDoubleSpace(text: string) {
+    return text.replace(/\s+/g, ' ').trim()
 }
