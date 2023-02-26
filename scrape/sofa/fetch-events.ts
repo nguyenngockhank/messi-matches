@@ -1,4 +1,5 @@
-import { eventsDist, fetchPlayerEvents, writeJson } from "./scrape";
+import { eventsDist, fetchPlayerEvents } from "./scrape";
+import { writeJson } from "../fileHelpers";
 import { PlayerEvents } from "./types";
 
 async function scrapePlayerEvents(playerId: number) {

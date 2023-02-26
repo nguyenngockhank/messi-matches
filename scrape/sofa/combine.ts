@@ -1,6 +1,7 @@
 // combine
 
-import { combinedDist, eventsDist, incidentDist, readJsonFromFile, writeJson } from "./scrape";
+import { combinedDist, eventsDist, incidentDist } from "./scrape";
+import { readJsonFromFile, writeJson } from "../fileHelpers";
 import { MatchIncidents, PlayerEvents } from "./types";
 
 type EnrichEvent = Event & {

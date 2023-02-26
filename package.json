@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-match": "npx nodemon scrape/match-video.ts",
-    "dev-fetch": "npx nodemon scrape/messivscr/fetch.ts",
+    "dev-fetch": "npx nodemon scrape/starplayerstats/fetch-match-details.ts",
     "dev-md": "npx nodemon scrape/make-md.ts",
     "fetch": "node dist/messivscr/fetch",
     "fetch-sofa": "node dist/sofa/scrape",
@@ -21,10 +21,14 @@
   "dependencies": {
     "@tidyjs/tidy": "^2.5.1",
     "@types/showdown": "^2.0.0",
-    "axios": "^0.27.2",
+    "axios": "^1.3.4",
+    "axios-cache-interceptor": "^1.0.1",
     "chart.js": "^2.9.4",
     "chartjs-plugin-labels": "^1.1.0",
+    "cheerio": "^1.0.0-rc.12",
     "ics": "^2.41.0",
+    "jquery": "^3.6.3",
+    "jsdom": "^21.1.0",
     "lodash": "^4.17.21",
     "nedb-promises": "^6.1.0",
     "showdown": "^2.1.0"
