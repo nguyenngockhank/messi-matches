@@ -44,8 +44,18 @@ export async function fetchAllGoals() {
     return response.data
 }
 
+export async function fetchAllAssists() {
+    const url = `http://messi.starplayerstats.com/en/assists`;
+    const response = await axios.get(url, { 
+        responseType: 'text',
+    });
+    return response.data
+}
+
+
 export const starplayerstatsDist = "dist/data/starplayerstats-messi.json";
 export const goalsDist = "dist/data/goals-messi.json";
+export const assistsDist = "dist/data/assists-messi.json";
 
 
 export function getStoredMatchMap() : Record<string, MatchDetail> {
@@ -62,6 +72,10 @@ export function storeMatches(matches: MatchDetail[] | Record<string, MatchDetail
 
 export function storeGoals(goals: any) {
     return writeJson(goals, goalsDist)
+}
+
+export function storeAssists(goals: any) {
+    return writeJson(goals, assistsDist)
 }
 
 

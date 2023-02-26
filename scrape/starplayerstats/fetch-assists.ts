@@ -1,13 +1,13 @@
 import * as cheerio from 'cheerio';
-import { extractRowData, fetchAllGoals, fetchMatchDetail, removeDoubleSpace, storeGoals, traverseRows } from "./common";
+import { extractRowData, fetchAllGoals, fetchMatchDetail, removeDoubleSpace, storeAssists, storeGoals, traverseRows } from "./common";
 import _ from "lodash";
-import { Goal,  } from './types';
+import { Assist, GoalDetail } from './types';
 import { extractGoalsDetail } from './extract-match-detail-helpers';
 
 
-function extractGoalsMatchMap(content: string) : Record<string, Goal[]> {
+function extractAssistsMatchMap(content: string) : Record<string, Assist[]> {
     const $table = cheerio.load(content)('table');
-    const goalList : Goal[] = [];
+    const goalList : Assist[] = [];
     
     traverseRows($table, ($row) => {
         const matchHref  = $row('tr').attr("data-href")
@@ -16,10 +16,10 @@ function extractGoalsMatchMap(content: string) : Record<string, Goal[]> {
         }
        
         const [
-            goalOrder, textDate, competition,
+            assistOrder, textDate, competition,
             homeTeam, result, awayTeam, 
-            time, score, what, how, jersey,
-        ] = extractRowData($row, 11);
+            time, assistOn, score
+        ] = extractRowData($row, 9);
         
         const [,,,matchId] = matchHref.split('/');
         const matchslug = textDate.split("-").reverse().join("-");
@@ -27,15 +27,13 @@ function extractGoalsMatchMap(content: string) : Record<string, Goal[]> {
         goalList.push({
             href: matchHref,
             matchId,
-            what, 
-            how, 
-            jersey: parseInt(jersey),
-            order: parseInt(goalOrder),
+            order: parseInt(assistOrder),
             result,
             matchslug,
             homeTeam,
             awayTeam,
             time,
+            assistOn,
             competition: removeDoubleSpace(competition),
             score,
         })
@@ -44,24 +42,24 @@ function extractGoalsMatchMap(content: string) : Record<string, Goal[]> {
     return _.groupBy(goalList, "matchslug");
 }
 
-async function scrapeAllGoals() : Promise<Record<string, Goal[]>> {
+async function scrapeAllAssists() : Promise<Record<string, Assist[]>> {
     const goalsContent = await fetchAllGoals();
-    const goalsMatchMap = extractGoalsMatchMap(goalsContent);
+    const assistsMatchMap = extractAssistsMatchMap(goalsContent);
     
-    for(const slug in goalsMatchMap) {
-        const firstGoal = goalsMatchMap[slug][0];
+    for(const slug in assistsMatchMap) {
+        const firstGoal = assistsMatchMap[slug][0];
 
         const htmlContent = await fetchMatchDetail(firstGoal.href);
         const $ = cheerio.load(htmlContent);
 
-        const allHasExtra = goalsMatchMap[slug].every(goal => _.hasIn(goal, "from"))
+        const allHasExtra = assistsMatchMap[slug].every(goal => _.hasIn(goal, "from"))
 
         if  (allHasExtra) {
             continue;
         }
 
         const extraAttrList = extractGoalsDetail($)
-        goalsMatchMap[slug].map(goal => {
+        assistsMatchMap[slug].map(goal => {
             const extraAttrs = extraAttrList.find(item => item.time === goal.time);
             if (extraAttrs) {
                 console.log("Found extra attrs", extraAttrs)
@@ -70,5 +68,7 @@ async function scrapeAllGoals() : Promise<Record<string, Goal[]>> {
         })
     }
 
-    return goalsMatchMap;
+    return assistsMatchMap;
 }
+
+scrapeAllAssists().then(assists => storeAssists(assists))

@@ -16,6 +16,19 @@ export type EnrichedMatchDetail = MatchDetail & {
     referee?: string;
 };
 
+export type Assist = {
+    time: string;
+    order: number;
+    matchslug: string;
+    competition: string;
+    homeTeam: string;
+    awayTeam: string;
+    assistOn: string; // player name
+    score: string;
+    result: string;
+    href: string;
+    matchId: string;
+}
 
 export type Goal = {
     time: string;
@@ -42,3 +55,4 @@ export type GoalExtra = {
 }
 
 export type GoalDetail = Goal & GoalExtra;
+export type AssistDetail = Goal & GoalExtra;
