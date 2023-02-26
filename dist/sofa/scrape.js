@@ -3,38 +3,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const nedb_promises_1 = __importDefault(require("nedb-promises"));
+exports.fetchEventIncidents = exports.fetchPlayerEvents = exports.sleep = exports.writeJson = exports.readJsonFromFile = exports.combinedDist = exports.incidentDist = exports.eventsDist = void 0;
 const axios_1 = __importDefault(require("axios"));
-const lodash_1 = __importDefault(require("lodash"));
-const processWithPage_1 = require("./processWithPage");
-async function execute() {
-    let datastore = nedb_promises_1.default.create('./storage/messi.db');
-    await (0, processWithPage_1.processWithPage)({
-        fetchPageData(index) {
-            console.log("> fetch page index", index);
-            return fetchPlayerEvents(12994, index);
-        },
-        async hasNextPage(pageData) {
-            return lodash_1.default.get(pageData, "hasNextPage") || false;
-        },
-        async processPageData(pageData) {
-            const events = lodash_1.default.get(pageData, "events") || [];
-            const docs = events.map(e => {
-                const key = e.id.toString();
-                const incidents = lodash_1.default.get(pageData, `incidentsMap.${key}`);
-                const statistics = lodash_1.default.get(pageData, `statisticsMap.${key}.rating`);
-                const playedForTeam = lodash_1.default.get(pageData, `playedForTeamMap.${key}`);
-                const onBench = lodash_1.default.get(pageData, `onBenchMap.${key}`);
-                return Object.assign(Object.assign({}, e), { _id: key, incidents, statistics, playedForTeam, onBench });
-            });
-            await datastore.insert(docs);
-        }
-    });
+const fs_1 = __importDefault(require("fs"));
+exports.eventsDist = 'dist/data/sofa-messi-events.json';
+exports.incidentDist = 'dist/data/sofa-messi-incidents.json';
+exports.combinedDist = 'dist/data/sofa-messi.json';
+function readJsonFromFile(path) {
+    const content = fs_1.default.readFileSync(path, { encoding: 'utf8' });
+    return JSON.parse(content);
 }
+exports.readJsonFromFile = readJsonFromFile;
+function writeJson(data, path) {
+    fs_1.default.writeFileSync(path, JSON.stringify(data));
+}
+exports.writeJson = writeJson;
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+exports.sleep = sleep;
 async function fetchPlayerEvents(playerId, index) {
+    await sleep(200);
+    console.log("fetched ", playerId, index);
     // 12994
     const response = await axios_1.default.get(`https://api.sofascore.com/api/v1/player/${playerId}/events/last/${index}`);
     return response.data;
 }
-execute();
+exports.fetchPlayerEvents = fetchPlayerEvents;
+async function fetchEventIncidents(eventId) {
+    await sleep(100);
+    console.log("fetched event Incidents", eventId);
+    // 12994
+    const response = await axios_1.default.get(`https://api.sofascore.com/api/v1/event/${eventId}/incidents`);
+    return response.data;
+}
+exports.fetchEventIncidents = fetchEventIncidents;
 //# sourceMappingURL=scrape.js.map
