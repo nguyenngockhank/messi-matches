@@ -1,14 +1,13 @@
 import * as cheerio from 'cheerio';
-import { writeJson } from "../fileHelpers";
-import { fetchAllMatches, MatchDetail, starplayerstatsDist } from "./common";
+import _ from 'lodash';
+import { fetchAllMatches, getStoredMatchMap, MatchDetail, storeMatches } from "./common";
 
-
-
-fetchAllMatches().then(content => {
+function extractMatchesOnPage(content: string) : MatchDetail[] {
     const $ = cheerio.load(content);
     const $table = $('.nextlevel');
-    
+
     const matchList : MatchDetail[] = [];
+    
     $table.find('tbody tr').each((index, el) => {
         const matchHref = el.attributes.find(attr => attr.name === 'data-href');
         if (!matchHref) {
@@ -36,7 +35,26 @@ fetchAllMatches().then(content => {
             assists: parseInt(assists),
         })
     })
-    
-    writeJson(matchList, starplayerstatsDist)
+
+    return matchList;
+}
+
+fetchAllMatches().then(content => {
+    const storedMatchMap = getStoredMatchMap();
+
+    const pageMatches : MatchDetail[] = extractMatchesOnPage(content);
+
+    // enrich old s
+    let hasChanged = false;
+    pageMatches.forEach(match => {
+        if (!storedMatchMap[match.matchslug]) {
+            hasChanged = true;
+            return storedMatchMap[match.matchslug] = match;
+        }
+    });
+
+    if (hasChanged) {
+        storeMatches(storedMatchMap)
+    }
 });
 

@@ -1,13 +1,13 @@
+import _ from 'lodash';
 import * as cheerio from 'cheerio';
-import { readJsonFromFile, writeJson } from "../fileHelpers";
-import { MatchDetail, starplayerstatsDist, fetchMatchDetail, EnrichedMatchDetail } from "./common";
+import { storeMatches, fetchMatchDetail, EnrichedMatchDetail, getStoredMatchMap } from "./common";
 
 function removeDoubleSpace(text: string) {
     return text.replace(/\s+/g, ' ').trim()
 }
 
 
-function getMatchExtraFields(htmlContent: string)  {
+function extractMatchExtraFields(htmlContent: string)  {
     const $ = cheerio.load(htmlContent);
     const location = $('.misc span:first-child').first().text().trim()
     const visitors = $('.misc .visitors').text().trim()
@@ -23,18 +23,26 @@ function getMatchExtraFields(htmlContent: string)  {
 
 
 async function execute() {
-    const allMatches: EnrichedMatchDetail[] = readJsonFromFile(starplayerstatsDist);
-    let index = 0;
-    for(const match of allMatches) {
+    const storedMatchMap: Record<string, EnrichedMatchDetail> = getStoredMatchMap();
+
+    for(const slug in storedMatchMap) {
+        const match = storedMatchMap[slug];
+
+        const shouldFetch = !match.location && !match.referee && !match.visitors;
+
+        if (!shouldFetch) {
+            console.log("> skip fetch", slug)
+            continue;
+        }
+
         const html = await fetchMatchDetail(match.href);
-        const extraFields = getMatchExtraFields(html);
-        console.log(++index)
+        const extraFields = extractMatchExtraFields(html);
+        console.log("> extraFields", slug, extraFields)
         Object.assign(match, extraFields);
     }
 
-    writeJson(allMatches, starplayerstatsDist);
-
-    return allMatches;
+    storeMatches(storedMatchMap);
+    return storedMatchMap;
 }
 
 execute()

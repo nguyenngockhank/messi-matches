@@ -3,21 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchEventIncidents = exports.fetchPlayerEvents = exports.sleep = exports.writeJson = exports.readJsonFromFile = exports.combinedDist = exports.incidentDist = exports.eventsDist = void 0;
+exports.fetchEventIncidents = exports.fetchPlayerEvents = exports.sleep = exports.combinedDist = exports.incidentDist = exports.eventsDist = void 0;
 const axios_1 = __importDefault(require("axios"));
-const fs_1 = __importDefault(require("fs"));
 exports.eventsDist = 'dist/data/sofa-messi-events.json';
 exports.incidentDist = 'dist/data/sofa-messi-incidents.json';
 exports.combinedDist = 'dist/data/sofa-messi.json';
-function readJsonFromFile(path) {
-    const content = fs_1.default.readFileSync(path, { encoding: 'utf8' });
-    return JSON.parse(content);
-}
-exports.readJsonFromFile = readJsonFromFile;
-function writeJson(data, path) {
-    fs_1.default.writeFileSync(path, JSON.stringify(data));
-}
-exports.writeJson = writeJson;
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }

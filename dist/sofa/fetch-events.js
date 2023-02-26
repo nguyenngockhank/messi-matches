@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const scrape_1 = require("./scrape");
+const fileHelpers_1 = require("../fileHelpers");
 async function scrapePlayerEvents(playerId) {
     const allEvents = {
         events: [],
@@ -23,6 +24,6 @@ async function scrapePlayerEvents(playerId) {
 }
 const playerMessiId = 12994;
 scrapePlayerEvents(playerMessiId).then((allEvents) => {
-    (0, scrape_1.writeJson)(allEvents, scrape_1.eventsDist);
+    (0, fileHelpers_1.writeJson)(allEvents, scrape_1.eventsDist);
 });
 //# sourceMappingURL=fetch-events.js.map

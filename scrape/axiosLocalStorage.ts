@@ -5,7 +5,7 @@ export const storageDist = 'axios-cache';
 
 export const axiosLocalStorage = buildStorage({
     async find(key) {
-        // console.log("find key", key);
+        console.log("find key", key);
         const filePath = storageDist + "/"  + key;
         if(!fs.existsSync(filePath)) {
             // console.log("key not exists", key);

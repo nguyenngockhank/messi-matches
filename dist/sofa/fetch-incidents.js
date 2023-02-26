@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const scrape_1 = require("./scrape");
+const fileHelpers_1 = require("../fileHelpers");
 async function scrapeEventIncidents() {
-    const allEvents = (0, scrape_1.readJsonFromFile)(scrape_1.eventsDist);
+    const allEvents = (0, fileHelpers_1.readJsonFromFile)(scrape_1.eventsDist);
     const allIncidents = {};
     for (const event of allEvents.events) {
         try {
@@ -16,6 +17,6 @@ async function scrapeEventIncidents() {
     return allIncidents;
 }
 scrapeEventIncidents().then((allIncidents) => {
-    (0, scrape_1.writeJson)(allIncidents, scrape_1.incidentDist);
+    (0, fileHelpers_1.writeJson)(allIncidents, scrape_1.incidentDist);
 });
 //# sourceMappingURL=fetch-incidents.js.map
